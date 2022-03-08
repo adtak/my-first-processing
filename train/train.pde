@@ -1,36 +1,43 @@
 class Train {
   private color c;
-  private float x;
-  private float y;
+  private float x, y;
+  private int w, h;
   private float vx;
+  private float wheel_radius;
   private Wheel[] wheels;
 
-  public Train(color c, float x, float y, float vx) {
+  public Train(color c, int w, int h, float x, float y, float vx) {
     this.c = c;
+    this.w = w;
+    this.h = h;
     this.x = x;
     this.y = y;
     this.vx = vx;
+    this.wheel_radius = 25;
     this.wheels = new Wheel[] {
-      new Wheel(c, x-100-25, y+75+25, vx),
-      new Wheel(c, x-100+25, y+75+25, vx),
-      new Wheel(c, x+100-25, y+75+25, vx),
-      new Wheel(c, x+100+25, y+75+25, vx),
+      new Wheel(c, x-w/4-this.wheel_radius, y+h/2+this.wheel_radius, vx),
+      new Wheel(c, x-w/4+this.wheel_radius, y+h/2+this.wheel_radius, vx),
+      new Wheel(c, x+w/4-this.wheel_radius, y+h/2+this.wheel_radius, vx),
+      new Wheel(c, x+w/4+this.wheel_radius, y+h/2+this.wheel_radius, vx),
     };
   }
 
   public void move() {
     this.x += this.vx;
-    moveBody();
-    moveWheel();
+    drawBody();
+    drawWheel();
   }
 
-  private void moveBody() {
+  private void drawBody() {
     stroke(this.c);
     strokeWeight(5);
     rectMode(CENTER);
-    rect(this.x, this.y, 400, 150, 10);
+    rect(this.x, this.y, this.w, this.h, 10);
     line(this.x-200, this.y+50, this.x+200, this.y+50);
-    // window
+    drawWindow();
+  }
+
+  private void drawWindow() {
     rect(this.x-100-50, this.y-15, 50, 70, 10);
     line(this.x-175, this.y-20, this.x-125, this.y-20);
     rect(this.x-50, this.y-15, 50, 70, 10);
@@ -41,7 +48,7 @@ class Train {
     line(this.x+125, this.y-20, this.x+175, this.y-20);
   }
 
-  private void moveWheel() {
+  private void drawWheel() {
     for (Wheel wheel : this.wheels) {
       wheel.move();
     }
@@ -79,13 +86,17 @@ Train train;
 void setup() {
   size(1200, 800);
   colorMode(HSB, 360, 10, 10);
-  train = new Train(color(random(360), 5, 10), -500, height/2, 2);
+  train = create_train();
 }
 
 void draw() {
   background(0, 0, 10);
   train.move();
   if (width+500<train.x) {
-    train = new Train(color(random(360), 5, 10), -500, height/2, 2);
+    train = create_train();
   }
+}
+
+Train create_train() {
+  return new Train(color(random(360), 5, 10), 400, 150, -500, height/2, 2);
 }
