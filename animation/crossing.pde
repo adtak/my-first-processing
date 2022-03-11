@@ -6,13 +6,13 @@ class Crossing {
     this.ground = ground;
   }
 
-  public void draw() {
+  public void draw(float objectHead, float objectTail) {
     stroke(0, 0, 5);
     strokeWeight(5);
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    drawBarrier();
+    drawBarrier(objectHead, objectTail);
     drawBase();
     drawSign();
     drawLight();
@@ -53,12 +53,23 @@ class Crossing {
     ellipse(this.x+50, y, 20, 20);
   }
 
-  private void drawBarrier() {
+  private void drawBarrier(float objectHead, float objectTail) {
     float y = this.ground-30-100;
     y += 15;
+    float threshold = 300;
+    objectHead += 400;
+    objectTail -= 400;
     pushMatrix();
     translate(this.x, y);
-    rotate(0);
+    if(objectHead<this.x && abs(this.x-objectHead)<threshold) {
+      rotate(-PI*4/9*(this.x-objectHead)/threshold);
+    } else if(this.x<objectTail && abs(objectTail-this.x)<threshold) {
+      rotate(-PI*4/9*(objectTail-this.x)/threshold);
+    } else if(objectTail<=this.x && this.x<=objectHead) {
+      rotate(0);
+    } else {
+      rotate(-PI*4/9);
+    }
     rect(150, 0, 300, 25, 10);
     popMatrix();
   }
