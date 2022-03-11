@@ -1,11 +1,13 @@
+float ground;
 Train train;
 Crossing crossing;
 
 void setup() {
   size(1200, 800);
   colorMode(HSB, 360, 10, 10);
+  ground = height*5/6;
   train = create_train();
-  crossing = new Crossing(width/4, height*5/6);
+  crossing = new Crossing(width/4, ground);
 }
 
 void draw() {
@@ -18,5 +20,5 @@ void draw() {
 }
 
 Train create_train() {
-  return new Train(color(random(360), 5, 10), 400, 150, -500, height/2+125, 2);
+  return new Train(color(random(360), 5, 10), 400, 150, -500, ground, 2);
 }

@@ -1,24 +1,24 @@
 class Train {
   private color c;
-  private float x, y;
+  private float x, y, ground;
   private int w, h;
   private float vx;
   private float wheel_radius;
   private Wheel[] wheels;
 
-  public Train(color c, int w, int h, float x, float y, float vx) {
+  public Train(color c, int w, int h, float x, float ground, float vx) {
+    this.wheel_radius = 25;
     this.c = c;
     this.w = w;
     this.h = h;
     this.x = x;
-    this.y = y;
+    this.y = ground-this.wheel_radius*2-h/2;
     this.vx = vx;
-    this.wheel_radius = 25;
     this.wheels = new Wheel[] {
-      new Wheel(c, x-w/4-this.wheel_radius, y+h/2+this.wheel_radius, vx),
-      new Wheel(c, x-w/4+this.wheel_radius, y+h/2+this.wheel_radius, vx),
-      new Wheel(c, x+w/4-this.wheel_radius, y+h/2+this.wheel_radius, vx),
-      new Wheel(c, x+w/4+this.wheel_radius, y+h/2+this.wheel_radius, vx),
+      new Wheel(c, x-w/4-this.wheel_radius, ground, vx),
+      new Wheel(c, x-w/4+this.wheel_radius, ground, vx),
+      new Wheel(c, x+w/4-this.wheel_radius, ground, vx),
+      new Wheel(c, x+w/4+this.wheel_radius, ground, vx),
     };
   }
 
@@ -58,13 +58,13 @@ class Train {
 class Wheel {
   private color c;
   private float x;
-  private float y;
+  private float ground;
   private float vx;
 
-  public Wheel(color c, float x, float y, float vx) {
+  public Wheel(color c, float x, float ground, float vx) {
     this.c = c;
     this.x = x;
-    this.y = y;
+    this.ground = ground;
     this.vx = vx;
   }
 
@@ -74,9 +74,9 @@ class Wheel {
     strokeWeight(5);
     ellipseMode(CENTER);
     // wheel
-    ellipse(this.x, this.y, 50, 50);
+    ellipse(this.x, this.ground-25, 50, 50);
     // axle
-    ellipse(this.x, this.y, 10, 10);
-    arc(this.x, this.y, 30, 30, this.x/25, this.x/25+PI/2, OPEN);
+    ellipse(this.x, this.ground-25, 10, 10);
+    arc(this.x, this.ground-25, 30, 30, this.x/25, this.x/25+PI/2, OPEN);
   }
 }
