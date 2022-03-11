@@ -5,7 +5,7 @@ void setup() {
   size(1200, 800);
   colorMode(HSB, 360, 10, 10);
   train = create_train();
-  crossing = new Crossing(width/4, height/2);
+  crossing = new Crossing(width/4, height*5/6);
 }
 
 void draw() {

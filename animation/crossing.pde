@@ -1,9 +1,9 @@
 class Crossing {
-  private float x, y;
+  private float x, ground;
 
-  public Crossing(float x, float y) {
+  public Crossing(float x, float ground) {
     this.x = x;
-    this.y = y;
+    this.ground = ground;
   }
 
   public void draw() {
@@ -11,29 +11,55 @@ class Crossing {
     strokeWeight(5);
     rectMode(CENTER);
     ellipseMode(CENTER);
-  
-    pushMatrix();
-    translate(this.x, this.y+175);
-    rotate(0);
-    rect(150, 0, 300, 25, 10);
-    popMatrix();
 
-    rect(this.x, this.y+75, 10, 150, 10);
-    rect(this.x, this.y+150+50, 30, 100, 10);
-    rect(this.x, this.y+150+100, 100, 30, 10, 10, 0, 0);
+    drawBarrier();
+    drawBase();
+    drawSign();
+    drawLight();
+  }
 
+  private void drawBase() {
+    rect(
+      this.x, this.ground-15,
+      100, 30,
+      10, 10, 0, 0);
+    rect(
+      this.x, this.ground-30-50,
+      30, 100,
+      10, 10, 0, 0);
+    rect(
+      this.x, this.ground-30-100-75,
+      10, 150,
+      10, 10, 0, 0);
+  }
+
+  private void drawSign() {
     pushMatrix();
-    translate(this.x, this.y);
+    translate(this.x, this.ground-30-100-150);
     rotate(PI/4);
     rect(0, 0, 150, 25, 10);
     rotate(PI/2);
     rect(0, 0, 150, 25, 10);
     popMatrix();
+  }
 
-    rect(this.x, this.y+100, 100, 10, 10);
-    ellipse(this.x-50, this.y+100, 40, 40);
-    ellipse(this.x+50, this.y+100, 40, 40);
-    ellipse(this.x-50, this.y+100, 20, 20);
-    ellipse(this.x+50, this.y+100, 20, 20);
+  private void drawLight() {
+    float y = this.ground-30-100;
+    y -= 60;
+    rect(this.x, y, 100, 10, 10);
+    ellipse(this.x-50, y, 40, 40);
+    ellipse(this.x+50, y, 40, 40);
+    ellipse(this.x-50, y, 20, 20);
+    ellipse(this.x+50, y, 20, 20);
+  }
+
+  private void drawBarrier() {
+    float y = this.ground-30-100;
+    y += 15;
+    pushMatrix();
+    translate(this.x, y);
+    rotate(0);
+    rect(150, 0, 300, 25, 10);
+    popMatrix();
   }
 }
