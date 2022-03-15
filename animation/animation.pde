@@ -25,16 +25,16 @@ void draw() {
 
 ArrayList<Train> create_train() {
   ArrayList<Train> result = new ArrayList<Train>();
-  int train_amount = int(random(10));
+  int train_amount = int(random(1, 15));
   int train_width = 400;
-  float leadingX = -1000;
-  float speed = random(5, 25);
+  float leadingX = -5000;
+  float speed = random(5, 15);
   color c = color(random(360), 5, 10);
   for(int i=0; i<train_amount; i++) {
-    leadingX = leadingX-train_width-5;
+    float x = leadingX-train_width*i-5;
     result.add(new Train(
       c, train_width, 150,
-      leadingX, ground, speed));
+      x, ground, speed));
   }
   return result;
 }

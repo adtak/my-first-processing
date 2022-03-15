@@ -1,5 +1,6 @@
 class Crossing {
   private float x, ground;
+  private final float DEFAULT_BARRIER_ANGLE = -PI*4/9;
 
   public Crossing(float x, float ground) {
     this.x = x;
@@ -12,10 +13,11 @@ class Crossing {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    drawBarrier(objectHead, objectTail);
+    float barrierAngle = calcBarrierAngle(objectHead, objectTail);
+    drawBarrier(barrierAngle);
     drawBase();
     drawSign();
-    drawLight();
+    drawLight(barrierAngle);
   }
 
   private void drawBase() {
@@ -43,34 +45,54 @@ class Crossing {
     popMatrix();
   }
 
-  private void drawLight() {
+  private void drawLight(float barrierAngle) {
     float y = this.ground-30-100;
     y -= 60;
     rect(this.x, y, 100, 10, 10);
     ellipse(this.x-50, y, 40, 40);
     ellipse(this.x+50, y, 40, 40);
-    ellipse(this.x-50, y, 20, 20);
-    ellipse(this.x+50, y, 20, 20);
+    if(this.DEFAULT_BARRIER_ANGLE<barrierAngle) {
+      if(millis()/500%2==0) {
+        fill(0, 5, 10);
+        ellipse(this.x-50, y, 20, 20);
+        fill(0, 0, 10);
+        ellipse(this.x+50, y, 20, 20);
+      } else {
+        fill(0, 5, 10);
+        ellipse(this.x+50, y, 20, 20);
+        fill(0, 0, 10);
+        ellipse(this.x-50, y, 20, 20);
+      }
+    } else {
+      ellipse(this.x-50, y, 20, 20);
+      ellipse(this.x+50, y, 20, 20);
+    }
   }
 
-  private void drawBarrier(float objectHead, float objectTail) {
+  private void drawBarrier(float barrierAngle) {
     float y = this.ground-30-100;
     y += 15;
-    float threshold = 300;
-    objectHead += 800;
-    objectTail -= 800;
     pushMatrix();
     translate(this.x, y);
-    if(objectHead<this.x && abs(this.x-objectHead)<threshold) {
-      rotate(-PI*4/9*(this.x-objectHead)/threshold);
-    } else if(this.x<objectTail && abs(objectTail-this.x)<threshold) {
-      rotate(-PI*4/9*(objectTail-this.x)/threshold);
-    } else if(objectTail<=this.x && this.x<=objectHead) {
-      rotate(0);
-    } else {
-      rotate(-PI*4/9);
-    }
+    rotate(barrierAngle);
     rect(150, 0, 300, 25, 10);
     popMatrix();
+  }
+
+  private float calcBarrierAngle(float objectHead, float objectTail) {
+    float barrierRotate;
+    float threshold = 300;
+    // buffer
+    objectHead += 800;
+    objectTail -= 800;
+    if(objectHead<this.x && abs(this.x-objectHead)<threshold) {
+      return -PI*4/9*(this.x-objectHead)/threshold;
+    } else if(this.x<objectTail && abs(objectTail-this.x)<threshold) {
+      return -PI*4/9*(objectTail-this.x)/threshold;
+    } else if(objectTail<=this.x && this.x<=objectHead) {
+      return 0;
+    } else {
+      return this.DEFAULT_BARRIER_ANGLE;
+    }
   }
 }
