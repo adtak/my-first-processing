@@ -28,8 +28,9 @@ class Train {
   }
 
   private void drawBody() {
-    stroke(this.c);
+    stroke(0, 0, 5);
     strokeWeight(5);
+    fill(this.c);
     rectMode(CENTER);
     rect(this.x, this.y, this.w, this.h, 10);
     line(this.x-this.w/2, this.y+this.h/3, this.x+this.w/2, this.y+this.h/3);
@@ -44,6 +45,7 @@ class Train {
   }
 
   private void drawWindow(float x, float y) {
+    fill(0, 0, 9.9);
     float window_width = this.w/8;
     float window_height = this.h/2;
     rect(x, y, window_width, window_height, 10);
@@ -75,8 +77,9 @@ class Wheel {
   public void move() {
     this.x += this.vx;
     float y = this.ground-this.radius;
-    stroke(this.c);
+    stroke(0, 0, 5);
     strokeWeight(5);
+    fill(0, 0, 9);
     ellipseMode(CENTER);
     // wheel
     ellipse(this.x, y, this.radius*2, this.radius*2);

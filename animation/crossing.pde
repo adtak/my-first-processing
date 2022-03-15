@@ -10,6 +10,7 @@ class Crossing {
   public void draw(float objectHead, float objectTail) {
     stroke(0, 0, 5);
     strokeWeight(5);
+    fill(0, 0, 10);
     rectMode(CENTER);
     ellipseMode(CENTER);
 
