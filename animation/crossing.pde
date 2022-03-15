@@ -57,8 +57,8 @@ class Crossing {
     float y = this.ground-30-100;
     y += 15;
     float threshold = 300;
-    objectHead += 400;
-    objectTail -= 400;
+    objectHead += 800;
+    objectTail -= 800;
     pushMatrix();
     translate(this.x, y);
     if(objectHead<this.x && abs(this.x-objectHead)<threshold) {

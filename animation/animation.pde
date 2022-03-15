@@ -28,12 +28,13 @@ ArrayList<Train> create_train() {
   int train_amount = int(random(10));
   int train_width = 400;
   float leadingX = -1000;
+  float speed = random(5, 25);
+  color c = color(random(360), 5, 10);
   for(int i=0; i<train_amount; i++) {
     leadingX = leadingX-train_width-5;
     result.add(new Train(
-      color(random(360), 5, 10),
-      train_width, 150,
-      leadingX, ground, 5));
+      c, train_width, 150,
+      leadingX, ground, speed));
   }
   return result;
 }
