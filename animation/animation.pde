@@ -1,13 +1,16 @@
+import ddf.minim.*;
+
 float ground;
 ArrayList<Train> trains;
 Crossing crossing;
+Minim minim = new Minim(this);
 
 void setup() {
   size(1200, 800);
   colorMode(HSB, 360, 10, 10);
   ground = height*5/6;
   trains = create_train();
-  crossing = new Crossing(width/4, ground);
+  crossing = new Crossing(width/4, ground, minim.loadFile("./resources/alarm.mp3"));
 }
 
 void draw() {
@@ -37,4 +40,10 @@ ArrayList<Train> create_train() {
       x, ground, speed));
   }
   return result;
+}
+
+void stop(){
+  crossing.player.close();
+  minim.stop();
+  super.stop();
 }

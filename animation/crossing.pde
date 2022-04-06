@@ -1,10 +1,12 @@
 class Crossing {
   private float x, ground;
   private final float DEFAULT_BARRIER_ANGLE = -PI*4/9;
+  private AudioPlayer player;
 
-  public Crossing(float x, float ground) {
+  public Crossing(float x, float ground, AudioPlayer player) {
     this.x = x;
     this.ground = ground;
+    this.player = player;
   }
 
   public void draw(float objectHead, float objectTail) {
@@ -53,6 +55,10 @@ class Crossing {
     ellipse(this.x-50, y, 40, 40);
     ellipse(this.x+50, y, 40, 40);
     if(this.DEFAULT_BARRIER_ANGLE<barrierAngle) {
+      if(this.player.length()-10<=this.player.position()) {
+        this.player.rewind();
+      }
+      this.player.play();
       if(millis()/500%2==0) {
         fill(0, 5, 10);
         ellipse(this.x-50, y, 20, 20);
@@ -65,6 +71,7 @@ class Crossing {
         ellipse(this.x-50, y, 20, 20);
       }
     } else {
+      this.player.pause();
       ellipse(this.x-50, y, 20, 20);
       ellipse(this.x+50, y, 20, 20);
     }
