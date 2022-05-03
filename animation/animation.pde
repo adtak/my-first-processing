@@ -6,7 +6,7 @@ Crossing crossing;
 Minim minim = new Minim(this);
 
 void setup() {
-  size(1200, 800);
+  size(1920, 1080);
   colorMode(HSB, 360, 10, 10);
   ground = height*5/6;
   trains = create_train();
