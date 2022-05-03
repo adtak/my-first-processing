@@ -55,10 +55,10 @@ class Crossing {
     ellipse(this.x-50, y, 40, 40);
     ellipse(this.x+50, y, 40, 40);
     if(this.DEFAULT_BARRIER_ANGLE<barrierAngle) {
-      if(this.player.length()-10<=this.player.position()) {
-        this.player.rewind();
-      }
-      this.player.play();
+      // if(this.player.length()-10<=this.player.position()) {
+      //   this.player.rewind();
+      // }
+      // this.player.play();
       if(millis()/500%2==0) {
         fill(0, 5, 10);
         ellipse(this.x-50, y, 20, 20);
@@ -71,7 +71,7 @@ class Crossing {
         ellipse(this.x-50, y, 20, 20);
       }
     } else {
-      this.player.pause();
+      // this.player.pause();
       ellipse(this.x-50, y, 20, 20);
       ellipse(this.x+50, y, 20, 20);
     }
