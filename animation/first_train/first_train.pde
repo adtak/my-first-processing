@@ -10,7 +10,7 @@ void setup() {
   colorMode(HSB, 360, 10, 10);
   ground = height*5/6;
   trains = create_train();
-  crossing = new Crossing(width/4, ground, minim.loadFile("./resources/alarm.mp3"));
+  crossing = new Crossing(width/4, ground, minim.loadFile("../../resources/alarm.mp3"));
 }
 
 void draw() {
@@ -25,7 +25,7 @@ void draw() {
     trains.get(0).x,
     trains.get(trains.size()-1).x);
   if (frameCount < 30*60*10) {
-    saveFrame("frames/#####.png");
+    // saveFrame("frames/#####.png");
   }
 }
 
