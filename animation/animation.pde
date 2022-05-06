@@ -24,7 +24,9 @@ void draw() {
   crossing.draw(
     trains.get(0).x,
     trains.get(trains.size()-1).x);
-  // saveFrame("frames/####.png");
+  if (frameCount < 30*60*10) {
+    saveFrame("frames/#####.png");
+  }
 }
 
 ArrayList<Train> create_train() {
