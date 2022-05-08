@@ -1,3 +1,26 @@
+class Trains {
+  private ArrayList<Train> cars;
+
+  public Trains(
+    color c, int w, int h, float xInit, float ground,
+    float speed, int trainAmount
+) {
+    this.cars = new ArrayList<Train>();
+    for(int i=0; i<trainAmount; i++) {
+      float x = xInit-w*i;
+      cars.add(new Train(
+        c, w, h, x, ground, speed
+      ));
+    }
+  }
+
+  public void move() {
+    for (Train t : this.cars) {
+      t.move();
+    }
+  }
+}
+
 class Train {
   private color c;
   private float x, y, ground;
