@@ -1,10 +1,11 @@
-float ground;
 float horizon;
+float ground;
+Background background;
 Train train;
 
 void setup() {
-  // size(1920, 1080);
-  size(1300, 700);
+  size(1920, 1080);
+  // size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   ground = height*0.9;
   horizon = ground*0.95;
@@ -15,10 +16,13 @@ void setup() {
   train = new Train(
     c, train_width, train_height,
     -100, ground, speed);
+  background = new Background(horizon, ground);
 }
 
 void draw() {
-  Background bg = new Background(horizon, ground);
-  bg.draw();
+  background.draw();
   train.move();
+  if (frameCount < 10) {
+    saveFrame("frames/#####.png");
+  }
 }
