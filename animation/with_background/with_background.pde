@@ -30,7 +30,7 @@ void draw() {
 }
 
 Trains create_trains() {
-  color c = color(random(360), 5, 10);
+  color c = color(random(360), 4, 10);
   int trainWidth = 500;
   int trainHeight = 200;
   float speed = random(5, 15);

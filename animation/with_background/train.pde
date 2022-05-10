@@ -6,10 +6,14 @@ class Trains {
     float speed, int trainAmount
 ) {
     this.cars = new ArrayList<Train>();
+    float jointWidth = 20;
     for(int i=0; i<trainAmount; i++) {
-      float x = xInit-w*i;
+      float x = xInit-w*i-jointWidth*i;
+      if(i == trainAmount-1) {
+        jointWidth = 0;
+      }
       cars.add(new Train(
-        c, w, h, x, ground, speed
+        c, w, h, x, ground, speed, jointWidth
       ));
     }
   }
@@ -27,8 +31,15 @@ class Train {
   private int w, h;
   private float vx;
   private Wheel[] wheels;
+  private float jointWidth;
 
-  public Train(color c, int w, int h, float x, float ground, float vx) {
+  public Train(
+    color c,
+    int w, int h,
+    float x, float ground,
+    float vx,
+    float jointWidth
+  ) {
     float wheelSize = 20;
     this.c = c;
     this.w = w;
@@ -42,12 +53,14 @@ class Train {
       new Wheel(c, x+w/4-wheelSize, ground, wheelSize, vx),
       new Wheel(c, x+w/4+wheelSize, ground, wheelSize, vx),
     };
+    this.jointWidth = jointWidth;
   }
 
   public void move() {
     this.x += this.vx;
     drawBody();
     drawWheel();
+    drawJoint();
   }
 
   private void drawBody() {
@@ -68,9 +81,9 @@ class Train {
   }
 
   private void drawWindow(float x, float y) {
-    fill(0, 0, 9.9);
     float windowWidth = this.w/8;
     float windowHeight = this.h/2;
+    fill(190, 0.5, 10);
     rect(x, y, windowWidth, windowHeight, 10);
     line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
   }
@@ -79,6 +92,13 @@ class Train {
     for (Wheel wheel : this.wheels) {
       wheel.move();
     }
+  }
+
+  private void drawJoint() {
+    rect(
+      this.x-this.w/2-this.jointWidth/2, this.y,
+      this.jointWidth, this.h*0.8,
+      10);
   }
 }
 
