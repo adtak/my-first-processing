@@ -5,8 +5,8 @@ Trains trains;
 Crossing crossing;
 
 void setup() {
-  // size(1920, 1080);
-  size(1300, 700);
+  size(1920, 1080);
+  // size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   ground = height*0.9;
   horizon = ground*0.95;
@@ -24,7 +24,7 @@ void draw() {
   crossing.draw(
     trains.cars.get(0).x,
     trains.cars.get(trains.cars.size()-1).x);
-  if (frameCount < 10) {
+  if (frameCount < 30*60*15) {
     saveFrame("frames/#####.png");
   }
 }
