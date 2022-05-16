@@ -6,7 +6,7 @@ class Trains {
     float speed, int trainAmount
 ) {
     this.cars = new ArrayList<Train>();
-    float jointWidth = 20;
+    float jointWidth = 10;
     for(int i=0; i<trainAmount; i++) {
       float x = xInit-w*i-jointWidth*i;
       if(i == trainAmount-1) {
@@ -27,9 +27,9 @@ class Trains {
 
 class Train {
   private color c;
-  private float x, y, ground;
+  private float x, y, yDefault;
   private int w, h;
-  private float vx;
+  private float vx, vy;
   private Wheel[] wheels;
   private float jointWidth;
 
@@ -44,21 +44,53 @@ class Train {
     this.c = c;
     this.w = w;
     this.h = h;
+    this.yDefault = ground-wheelSize*2-h/2;
     this.x = x;
-    this.y = ground-wheelSize*2-h/2;
+    this.y = this.yDefault;
     this.vx = vx;
+    this.vy = 0;
     this.wheels = new Wheel[] {
-      new Wheel(c, x-w/4-wheelSize, ground, wheelSize, vx),
-      new Wheel(c, x-w/4+wheelSize, ground, wheelSize, vx),
-      new Wheel(c, x+w/4-wheelSize, ground, wheelSize, vx),
-      new Wheel(c, x+w/4+wheelSize, ground, wheelSize, vx),
+      new Wheel(
+        c,
+        x-w/4-wheelSize, ground-wheelSize,
+        ground, wheelSize,
+        vx, 0),
+      new Wheel(
+        c,
+        x-w/4+wheelSize, ground-wheelSize,
+        ground, wheelSize,
+        vx, 0),
+      new Wheel(
+        c,
+        x+w/4-wheelSize, ground-wheelSize,
+        ground, wheelSize,
+        vx, 0),
+      new Wheel(
+        c,
+        x+w/4+wheelSize, ground-wheelSize,
+        ground, wheelSize,
+        vx, 0),
     };
     this.jointWidth = jointWidth;
   }
 
   public void move() {
+    if (this.y < this.yDefault) {
+      this.vy += 0.5;
+      this.y = min(this.yDefault, this.y);
+    } else {
+      this.vy = 0;
+      if (random(1) > 0.98) {
+        this.vy = -20;
+      }
+    }
     this.x += this.vx;
+    this.y += this.vy;
     drawBody();
+    for (Wheel w : this.wheels) {
+      w.vx = this.vx;
+      w.vy = this.vy;
+    }
     drawWheel();
     drawJoint();
   }
@@ -104,34 +136,40 @@ class Train {
 
 class Wheel {
   private color c;
-  private float x;
+  private float x, y;
   private float ground;
   private float radius;
-  private float vx;
+  private float vx, vy;
 
-  public Wheel(color c, float x, float ground, float radius, float vx) {
+  public Wheel(
+    color c, float x, float y,
+    float ground, float radius,
+    float vx, float vy
+  ) {
     this.c = c;
     this.x = x;
+    this.y = y;
     this.ground = ground;
     this.radius = radius;
     this.vx = vx;
+    this.vy = vy;
   }
 
   public void move() {
     this.x += this.vx;
-    float y = this.ground-this.radius;
+    this.y += this.vy;
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(0, 0, 9);
     ellipseMode(CENTER);
     // wheel
-    ellipse(this.x, y, this.radius*2, this.radius*2);
+    ellipse(this.x, this.y, this.radius*2, this.radius*2);
     // axle
     ellipse(
-      this.x, y,
+      this.x, this.y,
       this.radius*2/5, this.radius*2/5);
     arc(
-      this.x, y,
+      this.x, this.y,
       this.radius*6/5, this.radius*6/5,
       this.x/25, this.x/25+PI/2, OPEN);
   }

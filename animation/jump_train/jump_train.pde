@@ -1,7 +1,7 @@
 float horizon;
 float ground;
 Background background;
-Trains trains;
+ArrayList<Trains> trainsList;
 Crossing crossing;
 
 void setup() {
@@ -11,19 +11,28 @@ void setup() {
   ground = height*0.9;
   horizon = ground*0.95;
   background = new Background(horizon, ground);
-  trains = create_trains();
+  trainsList = new ArrayList();
+  trainsList.add(create_trains());
   crossing = new Crossing(width/4, ground);
 }
 
 void draw() {
   background.draw();
-  trains.move();
-  if (width+1500<trains.cars.get(trains.cars.size()-1).x) {
-    trains = create_trains();
+  ArrayList<Trains> newTrainsList = new ArrayList();
+  for (Trains trains : trainsList) {
+    trains.move();
+    if (trains.cars.get(trains.cars.size()-1).x < width+400) {
+      newTrainsList.add(trains);
+    }
   }
-  crossing.draw(
-    trains.cars.get(0).x,
-    trains.cars.get(trains.cars.size()-1).x);
+  if (random(1) > 0.995) {
+    newTrainsList.add(create_trains());
+  }
+  trainsList = newTrainsList;
+
+  // crossing.draw(
+  //   trains.cars.get(0).x,
+  //   trains.cars.get(trains.cars.size()-1).x);
   // if (frameCount < 30*60*15) {
   //   saveFrame("frames/#####.png");
   // }
@@ -31,11 +40,11 @@ void draw() {
 
 Trains create_trains() {
   color c = color(random(360), 4, 10);
-  int trainWidth = 500;
-  int trainHeight = 200;
-  float speed = random(5, 15);
-  int trainAmount = int(random(1, 15));
+  int trainWidth = 400;
+  int trainHeight = 150;
+  float speed = 10;
+  int trainAmount = 2;
   return new Trains(
     c, trainWidth, trainHeight,
-    -1500, ground, speed, trainAmount);
+    -400, ground, speed, trainAmount);
 }
