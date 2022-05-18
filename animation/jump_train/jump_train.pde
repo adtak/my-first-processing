@@ -25,7 +25,7 @@ void draw() {
       newTrainsList.add(trains);
     }
   }
-  if (random(1) > 0.995) {
+  if (random(1) > 0.995 && newTrainsList.size() < 3) {
     newTrainsList.add(create_trains());
   }
   trainsList = newTrainsList;
@@ -33,6 +33,7 @@ void draw() {
   // crossing.draw(
   //   trains.cars.get(0).x,
   //   trains.cars.get(trains.cars.size()-1).x);
+
   // if (frameCount < 30*60*15) {
   //   saveFrame("frames/#####.png");
   // }
@@ -42,8 +43,8 @@ Trains create_trains() {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = 10;
-  int trainAmount = 2;
+  float speed = int(random(7, 15));
+  int trainAmount = 3;
   return new Trains(
     c, trainWidth, trainHeight,
     -400, ground, speed, trainAmount);

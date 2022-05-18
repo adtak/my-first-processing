@@ -76,7 +76,7 @@ class Train {
       this.y = min(this.yDefault, this.y);
     } else {
       this.vy = 0;
-      if (random(1) > 0.98) {
+      if (random(1) > 0.99) {
         this.vy = -20;
       }
     }
