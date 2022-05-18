@@ -53,23 +53,19 @@ class Train {
       new Wheel(
         c,
         x-w/4-wheelSize, ground-wheelSize,
-        ground, wheelSize,
-        vx, 0),
+        wheelSize),
       new Wheel(
         c,
         x-w/4+wheelSize, ground-wheelSize,
-        ground, wheelSize,
-        vx, 0),
+        wheelSize),
       new Wheel(
         c,
         x+w/4-wheelSize, ground-wheelSize,
-        ground, wheelSize,
-        vx, 0),
+        wheelSize),
       new Wheel(
         c,
         x+w/4+wheelSize, ground-wheelSize,
-        ground, wheelSize,
-        vx, 0),
+        wheelSize),
     };
     this.jointWidth = jointWidth;
   }
@@ -87,10 +83,6 @@ class Train {
     this.x += this.vx;
     this.y += this.vy;
     drawBody();
-    for (Wheel w : this.wheels) {
-      w.vx = this.vx;
-      w.vy = this.vy;
-    }
     drawWheel();
     drawJoint();
   }
@@ -122,7 +114,7 @@ class Train {
 
   private void drawWheel() {
     for (Wheel wheel : this.wheels) {
-      wheel.move();
+      wheel.draw(wheel.x+this.vx, wheel.y+this.vy);
     }
   }
 
@@ -137,27 +129,22 @@ class Train {
 class Wheel {
   private color c;
   private float x, y;
-  private float ground;
   private float radius;
-  private float vx, vy;
 
   public Wheel(
-    color c, float x, float y,
-    float ground, float radius,
-    float vx, float vy
+    color c,
+    float x, float y,
+    float radius
   ) {
     this.c = c;
     this.x = x;
     this.y = y;
-    this.ground = ground;
     this.radius = radius;
-    this.vx = vx;
-    this.vy = vy;
   }
 
-  public void move() {
-    this.x += this.vx;
-    this.y += this.vy;
+  public void draw(float x, float y) {
+    this.x = x;
+    this.y = y;
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(0, 0, 9);
