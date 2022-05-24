@@ -3,6 +3,7 @@ float ground;
 Background background;
 ArrayList<Trains> trainsList;
 Crossing crossing;
+float trainsHead, trainsTail;
 
 void setup() {
   // size(1920, 1080);
@@ -12,7 +13,7 @@ void setup() {
   horizon = ground*0.95;
   background = new Background(horizon, ground);
   trainsList = new ArrayList();
-  trainsList.add(create_trains());
+  trainsList.add(create_trains(-1500));
   crossing = new Crossing(width/4, ground);
 }
 
@@ -26,20 +27,24 @@ void draw() {
     }
   }
   if (random(1) > 0.995 && newTrainsList.size() < 3) {
-    newTrainsList.add(create_trains());
+    newTrainsList.add(create_trains(-400));
   }
   trainsList = newTrainsList;
 
-  // crossing.draw(
-  //   trains.cars.get(0).x,
-  //   trains.cars.get(trains.cars.size()-1).x);
+  if (trainsHead < width) {
+    trainsHead = trainsList.get(0).cars.get(0).x;
+  } else {
+    trainsHead = width;
+  }
+  trainsTail = 0;
+  crossing.draw(trainsHead, trainsTail);
 
   // if (frameCount < 30*60*15) {
   //   saveFrame("frames/#####.png");
   // }
 }
 
-Trains create_trains() {
+Trains create_trains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
@@ -47,5 +52,5 @@ Trains create_trains() {
   int trainAmount = 3;
   return new Trains(
     c, trainWidth, trainHeight,
-    -400, ground, speed, trainAmount);
+    xInit, ground, speed, trainAmount);
 }
