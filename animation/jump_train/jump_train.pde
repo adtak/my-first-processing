@@ -48,7 +48,7 @@ Trains create_trains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = int(random(7, 15));
+  float speed = int(random(7, 20));
   int trainAmount = 3;
   return new Trains(
     c, trainWidth, trainHeight,

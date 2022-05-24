@@ -73,15 +73,15 @@ class Train {
   public void move() {
     if (this.y < this.yDefault) {
       this.vy += 0.5;
-      this.y = min(this.yDefault, this.y);
     } else {
       this.vy = 0;
       if (random(1) > 0.99) {
-        this.vy = -20;
+        this.vy = random(-40, -20);
       }
     }
     this.x += this.vx;
     this.y += this.vy;
+    this.y = min(this.yDefault, this.y);
     drawBody();
     drawWheel();
     drawJoint();
@@ -114,7 +114,10 @@ class Train {
 
   private void drawWheel() {
     for (Wheel wheel : this.wheels) {
-      wheel.draw(wheel.x+this.vx, wheel.y+this.vy);
+      wheel.draw(
+        wheel.x+this.vx,
+        this.y+this.h/2+wheel.radius
+      );
     }
   }
 
