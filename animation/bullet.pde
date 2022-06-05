@@ -1,4 +1,4 @@
-class BulletTrain {
+class BulletTrainHead {
   private color c;
   private float x, y, yDefault;
   private int w, h;
@@ -6,18 +6,18 @@ class BulletTrain {
   private Wheel[] wheels;
   private float jointWidth;
 
-  public BulletTrain(
+  public BulletTrainHead(
     color c,
     int w, int h,
     float x, float ground,
     float vx,
     float jointWidth
   ) {
-    float wheelSize = 20;
+    float wheelRadius = 20;
     this.c = c;
     this.w = w;
     this.h = h;
-    this.yDefault = ground-wheelSize*2-h/2;
+    this.yDefault = ground-wheelRadius*2-h/2;
     this.x = x;
     this.y = this.yDefault;
     this.vx = vx;
@@ -25,20 +25,20 @@ class BulletTrain {
     this.wheels = new Wheel[] {
       new Wheel(
         c,
-        x-w/4-wheelSize, ground-wheelSize,
-        wheelSize),
+        x-w/4-wheelRadius, ground-wheelRadius,
+        wheelRadius),
       new Wheel(
         c,
-        x-w/4+wheelSize, ground-wheelSize,
-        wheelSize),
+        x-w/4+wheelRadius, ground-wheelRadius,
+        wheelRadius),
       new Wheel(
         c,
-        x+w/4+80-wheelSize, ground-wheelSize,
-        wheelSize),
+        x+w/4+80-wheelRadius, ground-wheelRadius,
+        wheelRadius),
       new Wheel(
         c,
-        x+w/4+80+wheelSize, ground-wheelSize,
-        wheelSize),
+        x+w/4+80+wheelRadius, ground-wheelRadius,
+        wheelRadius),
     };
     this.jointWidth = jointWidth;
   }
