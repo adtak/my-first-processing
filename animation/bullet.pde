@@ -1,19 +1,21 @@
 class BulletTrains {
-  private ArrayList<BulletTrain> bulletTrains;
+  private ArrayList<AbstractTrain> bulletTrains;
 
   public BulletTrains(
     color c, int w, int h, float xInit, float ground,
     float vx, int trainAmount
   ) {
-    this.bulletTrains = new ArrayList<BulletTrain>();
+    this.bulletTrains = new ArrayList<AbstractTrain>();
     float jointWidth = 10;
     float x = xInit;
     bulletTrains.add(
       new BulletTrainHead(c, w, h, x, ground, vx, jointWidth)
     );
     for(int i=0; i<trainAmount; i++) {
-      // x = x-w-jointWidth;
-      // bulletTrains.add();
+      x = x-w-jointWidth;
+      bulletTrains.add(
+        new BulletTrainMiddle(c, w, h, x, ground, vx, jointWidth)
+      );
     }
     x = x-w-jointWidth;
     bulletTrains.add(
@@ -22,13 +24,13 @@ class BulletTrains {
   }
 
   public void move(float jumpRate) {
-    for (BulletTrain t : this.bulletTrains) {
+    for (AbstractTrain t : this.bulletTrains) {
       t.move(jumpRate);
     }
   }
 }
 
-abstract class BulletTrain {
+abstract class AbstractTrain {
   protected color c;
   protected float x, y, yDefault;
   protected int w, h;
@@ -87,7 +89,7 @@ abstract class BulletTrain {
   }
 }
 
-class BulletTrainHead extends BulletTrain {
+class BulletTrainHead extends AbstractTrain {
   public BulletTrainHead(
     color c,
     int w, int h,
@@ -151,7 +153,7 @@ class BulletTrainHead extends BulletTrain {
   }
 }
 
-class BulletTrainTail extends BulletTrain {
+class BulletTrainTail extends AbstractTrain {
   public BulletTrainTail(
     color c,
     int w, int h,
@@ -215,5 +217,54 @@ class BulletTrainTail extends BulletTrain {
 
   protected void drawJoint() {
     // ovverride do nothing
+  }
+}
+
+class BulletTrainMiddle extends AbstractTrain {
+  public BulletTrainMiddle(
+    color c,
+    int w, int h,
+    float x, float ground,
+    float vx,
+    float jointWidth
+  ) {
+    float wheelRadius = 20;
+    this.c = c;
+    this.w = w;
+    this.h = h;
+    this.yDefault = ground-wheelRadius*2-h/2;
+    this.x = x;
+    this.y = this.yDefault;
+    this.vx = vx;
+    this.vy = 0;
+    this.wheels = new Wheel[] {
+      new Wheel(
+        c,
+        x-w/4-wheelRadius, ground-wheelRadius,
+        wheelRadius),
+      new Wheel(
+        c,
+        x-w/4+wheelRadius, ground-wheelRadius,
+        wheelRadius),
+      new Wheel(
+        c,
+        x+w/4-wheelRadius, ground-wheelRadius,
+        wheelRadius),
+      new Wheel(
+        c,
+        x+w/4+wheelRadius, ground-wheelRadius,
+        wheelRadius),
+    };
+    this.jointWidth = jointWidth;
+  }
+
+  protected void drawBody() {
+    stroke(0, 0, 5);
+    strokeWeight(5);
+    fill(this.c);
+    rectMode(CENTER);
+    rect(this.x, this.y, this.w, this.h, 10);
+    line(this.x-this.w/2, this.y+this.h/3, this.x+this.w/2, this.y+this.h/3);
+    drawWindows();
   }
 }

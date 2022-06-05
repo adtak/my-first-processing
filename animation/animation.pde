@@ -21,8 +21,8 @@ BulletTrains createBulletTrains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = 5;
-  int trainAmount = 0;
+  float speed = 10;
+  int trainAmount = 3;
   return new BulletTrains(
     c, trainWidth, trainHeight,
     xInit, ground, speed, trainAmount);
