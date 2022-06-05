@@ -14,7 +14,7 @@ void setup() {
 
 void draw() {
   background.draw();
-  bulletTrains.move(-1);
+  bulletTrains.move(1);
 }
 
 BulletTrains createBulletTrains(float xInit) {

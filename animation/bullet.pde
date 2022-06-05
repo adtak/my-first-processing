@@ -46,7 +46,7 @@ abstract class AbstractTrain {
     } else {
       this.vy = 0;
       if (random(1) < jumpRate) {
-        this.vy = random(-40, -20);
+        this.vy = random(-5, -1);
       }
     }
     this.x += this.vx;
