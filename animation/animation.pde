@@ -1,7 +1,7 @@
 float horizon;
 float ground;
 Background background;
-BulletTrainTail bulletTrain;
+BulletTrains bulletTrains;
 
 void setup() {
   size(1300, 700);
@@ -9,21 +9,21 @@ void setup() {
   ground = height*0.9;
   horizon = ground*0.95;
   background = new Background(horizon, ground);
-  bulletTrain = create_train(0);
+  bulletTrains = createBulletTrains(0);
 }
 
 void draw() {
   background.draw();
-  bulletTrain.move(-1);
+  bulletTrains.move(-1);
 }
 
-BulletTrainTail create_train(float xInit) {
+BulletTrains createBulletTrains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = 1;
-  int trainAmount = 1;
-  return new BulletTrainTail(
+  float speed = 5;
+  int trainAmount = 0;
+  return new BulletTrains(
     c, trainWidth, trainHeight,
-    xInit, ground, speed, 10);
+    xInit, ground, speed, trainAmount);
 }

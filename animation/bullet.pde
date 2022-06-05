@@ -1,11 +1,93 @@
-class BulletTrainHead {
-  private color c;
-  private float x, y, yDefault;
-  private int w, h;
-  private float vx, vy;
-  private Wheel[] wheels;
-  private float jointWidth;
+class BulletTrains {
+  private ArrayList<BulletTrain> bulletTrains;
 
+  public BulletTrains(
+    color c, int w, int h, float xInit, float ground,
+    float vx, int trainAmount
+  ) {
+    this.bulletTrains = new ArrayList<BulletTrain>();
+    float jointWidth = 10;
+    float x = xInit;
+    bulletTrains.add(
+      new BulletTrainHead(c, w, h, x, ground, vx, jointWidth)
+    );
+    for(int i=0; i<trainAmount; i++) {
+      // x = x-w-jointWidth;
+      // bulletTrains.add();
+    }
+    x = x-w-jointWidth;
+    bulletTrains.add(
+      new BulletTrainTail(c, w, h, x, ground, vx)
+    );
+  }
+
+  public void move(float jumpRate) {
+    for (BulletTrain t : this.bulletTrains) {
+      t.move(jumpRate);
+    }
+  }
+}
+
+abstract class BulletTrain {
+  protected color c;
+  protected float x, y, yDefault;
+  protected int w, h;
+  protected float vx, vy;
+  protected Wheel[] wheels;
+  protected float jointWidth;
+
+  abstract protected void drawBody();
+
+  public void move(float jumpRate) {
+    if (this.y < this.yDefault) {
+      this.vy += 0.5;
+    } else {
+      this.vy = 0;
+      if (random(1) < jumpRate) {
+        this.vy = random(-40, -20);
+      }
+    }
+    this.x += this.vx;
+    this.y += this.vy;
+    this.y = min(this.yDefault, this.y);
+    drawBody();
+    drawWheel();
+    drawJoint();
+  }
+
+  protected void drawWindows() {
+    drawWindow(this.x-this.w*3/8, this.y-this.h/10);
+    drawWindow(this.x-this.w/8, this.y-this.h/10);
+    drawWindow(this.x+this.w/8, this.y-this.h/10);
+    drawWindow(this.x+this.w*3/8, this.y-this.h/10);
+  }
+
+  protected void drawWindow(float x, float y) {
+    float windowWidth = this.w/8;
+    float windowHeight = this.h/2;
+    fill(190, 0.5, 10);
+    rect(x, y, windowWidth, windowHeight, 10);
+    line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
+  }
+
+  protected void drawJoint() {
+    rect(
+      this.x-this.w/2-this.jointWidth/2, this.y,
+      this.jointWidth, this.h*0.8,
+      10);
+  }
+
+  protected void drawWheel() {
+    for (Wheel wheel : this.wheels) {
+      wheel.draw(
+        wheel.x+this.vx,
+        this.y+this.h/2+wheel.radius
+      );
+    }
+  }
+}
+
+class BulletTrainHead extends BulletTrain {
   public BulletTrainHead(
     color c,
     int w, int h,
@@ -43,24 +125,7 @@ class BulletTrainHead {
     this.jointWidth = jointWidth;
   }
 
-  public void move(float jumpRate) {
-    if (this.y < this.yDefault) {
-      this.vy += 0.5;
-    } else {
-      this.vy = 0;
-      if (random(1) < jumpRate) {
-        this.vy = random(-40, -20);
-      }
-    }
-    this.x += this.vx;
-    this.y += this.vy;
-    this.y = min(this.yDefault, this.y);
-    drawBody();
-    drawWheel();
-    drawJoint();
-  }
-
-  private void drawBody() {
+  protected void drawBody() {
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(this.c);
@@ -84,53 +149,14 @@ class BulletTrainHead {
     line(this.x-this.w/2, this.y+this.h/3, this.x+this.w*0.7, this.y+this.h/3);
     drawWindows();
   }
-
-  private void drawWindows() {
-    drawWindow(this.x-this.w*3/8, this.y-this.h/10);
-    drawWindow(this.x-this.w/8, this.y-this.h/10);
-    drawWindow(this.x+this.w/8, this.y-this.h/10);
-    drawWindow(this.x+this.w*3/8, this.y-this.h/10);
-  }
-
-  private void drawWindow(float x, float y) {
-    float windowWidth = this.w/8;
-    float windowHeight = this.h/2;
-    fill(190, 0.5, 10);
-    rect(x, y, windowWidth, windowHeight, 10);
-    line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
-  }
-
-  private void drawWheel() {
-    for (Wheel wheel : this.wheels) {
-      wheel.draw(
-        wheel.x+this.vx,
-        this.y+this.h/2+wheel.radius
-      );
-    }
-  }
-
-  private void drawJoint() {
-    rect(
-      this.x-this.w/2-this.jointWidth/2, this.y,
-      this.jointWidth, this.h*0.8,
-      10);
-  }
 }
 
-class BulletTrainTail {
-  private color c;
-  private float x, y, yDefault;
-  private int w, h;
-  private float vx, vy;
-  private Wheel[] wheels;
-  private float jointWidth;
-
+class BulletTrainTail extends BulletTrain {
   public BulletTrainTail(
     color c,
     int w, int h,
     float x, float ground,
-    float vx,
-    float jointWidth
+    float vx
   ) {
     float wheelRadius = 20;
     this.c = c;
@@ -159,27 +185,10 @@ class BulletTrainTail {
         x+w/4+wheelRadius, ground-wheelRadius,
         wheelRadius),
     };
-    this.jointWidth = jointWidth;
+    this.jointWidth = 0;
   }
 
-  public void move(float jumpRate) {
-    if (this.y < this.yDefault) {
-      this.vy += 0.5;
-    } else {
-      this.vy = 0;
-      if (random(1) < jumpRate) {
-        this.vy = random(-40, -20);
-      }
-    }
-    this.x += this.vx;
-    this.y += this.vy;
-    this.y = min(this.yDefault, this.y);
-    drawBody();
-    drawWheel();
-    drawJoint();
-  }
-
-  private void drawBody() {
+  protected void drawBody() {
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(this.c);
@@ -204,30 +213,7 @@ class BulletTrainTail {
     drawWindows();
   }
 
-  private void drawWindows() {
-    drawWindow(this.x-this.w*3/8, this.y-this.h/10);
-    drawWindow(this.x-this.w/8, this.y-this.h/10);
-    drawWindow(this.x+this.w/8, this.y-this.h/10);
-    drawWindow(this.x+this.w*3/8, this.y-this.h/10);
-  }
-
-  private void drawWindow(float x, float y) {
-    float windowWidth = this.w/8;
-    float windowHeight = this.h/2;
-    fill(190, 0.5, 10);
-    rect(x, y, windowWidth, windowHeight, 10);
-    line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
-  }
-
-  private void drawWheel() {
-    for (Wheel wheel : this.wheels) {
-      wheel.draw(
-        wheel.x+this.vx,
-        this.y+this.h/2+wheel.radius
-      );
-    }
-  }
-
-  private void drawJoint() {
+  protected void drawJoint() {
+    // ovverride do nothing
   }
 }
