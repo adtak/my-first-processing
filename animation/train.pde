@@ -1,39 +1,32 @@
-class Trains {
-  private ArrayList<Train> trains;
+class LocalTrains {
+  private ArrayList<LocalTrain> trains;
 
-  public Trains(
+  public LocalTrains(
     color c, int w, int h, float xInit, float ground,
     float speed, int trainAmount
 ) {
-    this.trains = new ArrayList<Train>();
+    this.trains = new ArrayList<LocalTrain>();
     float jointWidth = 10;
     for(int i=0; i<trainAmount; i++) {
       float x = xInit-w*i-jointWidth*i;
       if(i == trainAmount-1) {
         jointWidth = 0;
       }
-      this.trains.add(new Train(
+      this.trains.add(new LocalTrain(
         c, w, h, x, ground, speed, jointWidth
       ));
     }
   }
 
-  public void move() {
-    for (Train t : this.trains) {
-      t.move();
+  public void move(float jumpRate) {
+    for (LocalTrain t : this.trains) {
+      t.move(jumpRate);
     }
   }
 }
 
-class Train {
-  private color c;
-  private float x, y, yDefault;
-  private int w, h;
-  private float vx, vy;
-  private Wheel[] wheels;
-  private float jointWidth;
-
-  public Train(
+class LocalTrain extends AbstractTrain {
+  public LocalTrain(
     color c,
     int w, int h,
     float x, float ground,
@@ -70,24 +63,7 @@ class Train {
     this.jointWidth = jointWidth;
   }
 
-  public void move() {
-    if (this.y < this.yDefault) {
-      this.vy += 0.5;
-    } else {
-      this.vy = 0;
-      if (random(1) > 0.99) {
-        this.vy = random(-40, -20);
-      }
-    }
-    this.x += this.vx;
-    this.y += this.vy;
-    this.y = min(this.yDefault, this.y);
-    drawBody();
-    drawWheel();
-    drawJoint();
-  }
-
-  private void drawBody() {
+  protected void drawBody() {
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(this.c);
@@ -95,36 +71,5 @@ class Train {
     rect(this.x, this.y, this.w, this.h, 10);
     line(this.x-this.w/2, this.y+this.h/3, this.x+this.w/2, this.y+this.h/3);
     drawWindows();
-  }
-
-  private void drawWindows() {
-    drawWindow(this.x-this.w*3/8, this.y-this.h/10);
-    drawWindow(this.x-this.w/8, this.y-this.h/10);
-    drawWindow(this.x+this.w/8, this.y-this.h/10);
-    drawWindow(this.x+this.w*3/8, this.y-this.h/10);
-  }
-
-  private void drawWindow(float x, float y) {
-    float windowWidth = this.w/8;
-    float windowHeight = this.h/2;
-    fill(190, 0.5, 10);
-    rect(x, y, windowWidth, windowHeight, 10);
-    line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
-  }
-
-  private void drawWheel() {
-    for (Wheel wheel : this.wheels) {
-      wheel.draw(
-        wheel.x+this.vx,
-        this.y+this.h/2+wheel.radius
-      );
-    }
-  }
-
-  private void drawJoint() {
-    rect(
-      this.x-this.w/2-this.jointWidth/2, this.y,
-      this.jointWidth, this.h*0.8,
-      10);
   }
 }
