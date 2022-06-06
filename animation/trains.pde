@@ -1,3 +1,13 @@
+abstract class AbstractTrains {
+  protected ArrayList<AbstractTrain> trains;
+
+  protected void move(float jumpRate) {
+    for (AbstractTrain t : this.trains) {
+      t.move(jumpRate);
+    }
+  }
+}
+
 abstract class AbstractTrain {
   protected color c;
   protected float x, y, yDefault;

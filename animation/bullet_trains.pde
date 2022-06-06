@@ -1,32 +1,24 @@
-class BulletTrains {
-  private ArrayList<AbstractTrain> bulletTrains;
-
+class BulletTrains extends AbstractTrains {
   public BulletTrains(
     color c, int w, int h, float xInit, float ground,
     float vx, int trainAmount
   ) {
-    this.bulletTrains = new ArrayList<AbstractTrain>();
+    this.trains = new ArrayList<AbstractTrain>();
     float jointWidth = 10;
     float x = xInit;
-    this.bulletTrains.add(
+    this.trains.add(
       new BulletTrainHead(c, w, h, x, ground, vx, jointWidth)
     );
     for(int i=0; i<trainAmount; i++) {
       x = x-w-jointWidth;
-      this.bulletTrains.add(
+      this.trains.add(
         new BulletTrainMiddle(c, w, h, x, ground, vx, jointWidth)
       );
     }
     x = x-w-jointWidth;
-    this.bulletTrains.add(
+    this.trains.add(
       new BulletTrainTail(c, w, h, x, ground, vx)
     );
-  }
-
-  public void move(float jumpRate) {
-    for (AbstractTrain t : this.bulletTrains) {
-      t.move(jumpRate);
-    }
   }
 }
 

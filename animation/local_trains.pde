@@ -1,11 +1,9 @@
-class LocalTrains {
-  private ArrayList<LocalTrain> trains;
-
+class LocalTrains extends AbstractTrains {
   public LocalTrains(
     color c, int w, int h, float xInit, float ground,
     float speed, int trainAmount
-) {
-    this.trains = new ArrayList<LocalTrain>();
+  ) {
+    this.trains = new ArrayList<AbstractTrain>();
     float jointWidth = 10;
     for(int i=0; i<trainAmount; i++) {
       float x = xInit-w*i-jointWidth*i;
@@ -15,12 +13,6 @@ class LocalTrains {
       this.trains.add(new LocalTrain(
         c, w, h, x, ground, speed, jointWidth
       ));
-    }
-  }
-
-  public void move(float jumpRate) {
-    for (LocalTrain t : this.trains) {
-      t.move(jumpRate);
     }
   }
 }
