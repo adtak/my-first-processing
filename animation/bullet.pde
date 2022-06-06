@@ -8,17 +8,17 @@ class BulletTrains {
     this.bulletTrains = new ArrayList<AbstractTrain>();
     float jointWidth = 10;
     float x = xInit;
-    bulletTrains.add(
+    this.bulletTrains.add(
       new BulletTrainHead(c, w, h, x, ground, vx, jointWidth)
     );
     for(int i=0; i<trainAmount; i++) {
       x = x-w-jointWidth;
-      bulletTrains.add(
+      this.bulletTrains.add(
         new BulletTrainMiddle(c, w, h, x, ground, vx, jointWidth)
       );
     }
     x = x-w-jointWidth;
-    bulletTrains.add(
+    this.bulletTrains.add(
       new BulletTrainTail(c, w, h, x, ground, vx)
     );
   }
@@ -46,7 +46,7 @@ abstract class AbstractTrain {
     } else {
       this.vy = 0;
       if (random(1) < jumpRate) {
-        this.vy = random(-5, -1);
+        this.vy = random(-2, -1);
       }
     }
     this.x += this.vx;

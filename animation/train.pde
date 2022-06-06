@@ -1,25 +1,25 @@
 class Trains {
-  private ArrayList<Train> cars;
+  private ArrayList<Train> trains;
 
   public Trains(
     color c, int w, int h, float xInit, float ground,
     float speed, int trainAmount
 ) {
-    this.cars = new ArrayList<Train>();
+    this.trains = new ArrayList<Train>();
     float jointWidth = 10;
     for(int i=0; i<trainAmount; i++) {
       float x = xInit-w*i-jointWidth*i;
       if(i == trainAmount-1) {
         jointWidth = 0;
       }
-      cars.add(new Train(
+      this.trains.add(new Train(
         c, w, h, x, ground, speed, jointWidth
       ));
     }
   }
 
   public void move() {
-    for (Train t : this.cars) {
+    for (Train t : this.trains) {
       t.move();
     }
   }
