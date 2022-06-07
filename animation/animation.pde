@@ -16,31 +16,16 @@ void setup() {
 
 void draw() {
   background.draw();
-  ArrayList<LocalTrains> newLocalTrainsList = new ArrayList();
-  for (LocalTrains t : localTrainsList) {
-    t.move(1, -5, -1);
-    if (t.trains.get(t.trains.size()-1).x < width+400) {
-      newLocalTrainsList.add(t);
-    }
-  }
-  localTrainsList = newLocalTrainsList;
-
-  ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
-  for (BulletTrains t : bulletTrainsList) {
-    t.move(0, 0, 0);
-    if (t.trains.get(t.trains.size()-1).x < width+400) {
-      newBulletTrainsList.add(t);
-    }
-  }
-  bulletTrainsList = newBulletTrainsList;
+  drawLocalTrains();
+  drawBulletTrains();
 
   if(localTrainsList.size()<2) {
-    if(random(0, 1)<0.01) {
+    if(random(0, 1)<0.005) {
       localTrainsList.add(createLocalTrains(-1*width));
     }
   }
   if(bulletTrainsList.size()<2) {
-    if(random(0, 1)<0.01) {
+    if(random(0, 1)<0.005) {
       bulletTrainsList.add(createBulletTrains(-1*width));
     }
   }
@@ -66,4 +51,26 @@ BulletTrains createBulletTrains(float xInit) {
   return new BulletTrains(
     c, trainWidth, trainHeight,
     xInit, ground, speed, trainAmount);
+}
+
+void drawLocalTrains() {
+  ArrayList<LocalTrains> newLocalTrainsList = new ArrayList();
+  for (LocalTrains t : localTrainsList) {
+    t.move(1, -5, -1);
+    if (t.trains.get(t.trains.size()-1).x < width+400) {
+      newLocalTrainsList.add(t);
+    }
+  }
+  localTrainsList = newLocalTrainsList;
+}
+
+void drawBulletTrains() {
+  ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
+  for (BulletTrains t : bulletTrainsList) {
+    t.move(0, 0, 0);
+    if (t.trains.get(t.trains.size()-1).x < width+400) {
+      newBulletTrainsList.add(t);
+    }
+  }
+  bulletTrainsList = newBulletTrainsList;
 }
