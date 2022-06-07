@@ -6,6 +6,7 @@ ArrayList<LocalTrains> localTrainsList;
 ArrayList<BulletTrains> bulletTrainsList;
 
 void setup() {
+  // size(1920, 1080);
   size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   railLine1 = height*0.8;
@@ -20,7 +21,6 @@ void draw() {
   background.draw();
   drawBulletTrains();
   drawLocalTrains();
-
   if(localTrainsList.size()<2) {
     if(random(0, 1)<0.005) {
       localTrainsList.add(createLocalTrains(-1*width));
@@ -30,6 +30,13 @@ void draw() {
     if(random(0, 1)<0.005) {
       bulletTrainsList.add(createBulletTrains(-1*width));
     }
+  }
+  // save();
+}
+
+void save() {
+  if (frameCount < 30*60*1) {
+    saveFrame("frames/#####.png");
   }
 }
 
@@ -69,7 +76,7 @@ void drawLocalTrains() {
 void drawBulletTrains() {
   ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
   for (BulletTrains t : bulletTrainsList) {
-    t.move(0, 0, 0);
+    t.move(0.1, -30, -20);
     if (t.trains.get(t.trains.size()-1).x < width+400) {
       newBulletTrainsList.add(t);
     }
