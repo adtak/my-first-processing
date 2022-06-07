@@ -2,6 +2,9 @@ class Background {
   private float horizon, railLine1, railLine2;
   private ArrayList<Mountain> mountains;
   private ArrayList<Cloud> clouds;
+  private ArrayList<Tree> backTrees;
+  private ArrayList<Tree> midTrees;
+  private ArrayList<Tree> frontTrees;
 
   public Background(float horizon, float railLine1, float railLine2) {
     this.horizon = horizon;
@@ -16,33 +19,34 @@ class Background {
     this.clouds.add(new Cloud(width*0.75, height*0.3, 75, true));
     this.clouds.add(new Cloud(width*0.25, height*0.3, 30, false));
     this.clouds.add(new Cloud(width*0.55, height*0.15, 35, false));
+    this.backTrees = new ArrayList();
+    this.backTrees.add(new Tree(width*0.1, railLine1-10));
+    this.backTrees.add(new Tree(width*0.2, railLine1-10));
+    this.backTrees.add(new Tree(width*0.6, railLine1-10));
+    this.backTrees.add(new Tree(width*0.8, railLine1-10));
+    this.midTrees = new ArrayList();
+    this.midTrees.add(new Tree(width*0.16, railLine2-20));
+    this.midTrees.add(new Tree(width*0.7, railLine2-20));
+    this.midTrees.add(new Tree(width*0.9, railLine2-20));
+    this.frontTrees = new ArrayList();
+    this.frontTrees.add(new Tree(width*0.11, railLine2+20));
+    this.frontTrees.add(new Tree(width*0.82, railLine2+15));
   }
 
-  public void draw() {
+  public void drawBack() {
     drawBackground();
     drawMountain();
     drawCloud();
     drawLine();
+    drawBackTree();
+  }
 
-    stroke(0, 0, 5);
-    strokeWeight(5);
-    fill(color(100, 3, 8));
-    beginShape();
-    vertex(width/2, height/2);
-    bezierVertex(
-      width/2+60, height/2+120,
-      width/2+60, height/2+120,
-      width/2, height/2+150);
-    endShape();
-    fill(color(150, 3, 8));
-    beginShape();
-    vertex(width/2, height/2);
-    bezierVertex(
-      width/2-60, height/2+120,
-      width/2-60, height/2+120,
-      width/2, height/2+150);
-    endShape();
-    line(width/2, height/2, width/2, height/2+150+25);
+  public void drawMid() {
+    drawMidTree();
+  }
+
+  public void drawFront() {
+    drawFrontTree();
   }
 
   private void drawBackground() {
@@ -75,6 +79,64 @@ class Background {
     for (Cloud c : this.clouds) {
       c.draw();
     }
+  }
+
+  private void drawBackTree() {
+    for(Tree t : this.backTrees) {
+      t.draw();
+    }
+  }
+
+  private void drawMidTree() {
+    for(Tree t : this.midTrees) {
+      t.draw();
+    }
+  }
+
+  private void drawFrontTree() {
+    for(Tree t : this.frontTrees) {
+      t.draw();
+    }
+  }
+}
+
+class Tree {
+  private float x, y;
+  private float grassline, glrasstall;
+  private color leftColor, rightColor;
+
+  public Tree(float x, float y) {
+    this.x = x;
+    this.y = y;
+    this.leftColor = color(125+int(random(-25, 25)), 3, 8);
+    this.rightColor = color(125+int(random(-25, 25)), 3, 8);
+    this.grassline = y-25;
+    this.glrasstall = 150;
+  }
+
+  public void draw() {
+    stroke(0, 0, 5);
+    strokeWeight(5);
+
+    fill(this.leftColor);
+    beginShape();
+    vertex(this.x, this.grassline-this.glrasstall);
+    bezierVertex(
+      this.x-60, this.grassline-30,
+      this.x-60, this.grassline-30,
+      this.x, this.grassline);
+    endShape();
+
+    fill(this.rightColor);
+    beginShape();
+    vertex(this.x, this.grassline-this.glrasstall);
+    bezierVertex(
+      this.x+60, this.grassline-30,
+      this.x+60, this.grassline-30,
+      this.x, this.grassline);
+    endShape();
+
+    line(this.x, this.y, this.x, this.grassline-this.glrasstall);
   }
 }
 

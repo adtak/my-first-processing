@@ -18,9 +18,12 @@ void setup() {
 }
 
 void draw() {
-  background.draw();
+  background.drawBack();
   drawBulletTrains();
+  background.drawMid();
   drawLocalTrains();
+  background.drawFront();
+
   if(localTrainsList.size()<2) {
     if(random(0, 1)<0.005) {
       localTrainsList.add(createLocalTrains(-1*width));
@@ -45,7 +48,7 @@ LocalTrains createLocalTrains(float xInit) {
   int trainWidth = 400;
   int trainHeight = 150;
   float speed = random(10, 15);
-  int trainAmount = 8;
+  int trainAmount = 5;
   return new LocalTrains(
     c, trainWidth, trainHeight,
     xInit, railLine2, speed, trainAmount);
@@ -56,7 +59,7 @@ BulletTrains createBulletTrains(float xInit) {
   int trainWidth = 400;
   int trainHeight = 150;
   float speed = random(20, 30);
-  int trainAmount = 3;
+  int trainAmount = 8;
   return new BulletTrains(
     c, trainWidth, trainHeight,
     xInit, railLine1, speed, trainAmount);
@@ -76,7 +79,7 @@ void drawLocalTrains() {
 void drawBulletTrains() {
   ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
   for (BulletTrains t : bulletTrainsList) {
-    t.move(0.1, -30, -20);
+    t.move(0, -30, -20);
     if (t.trains.get(t.trains.size()-1).x < width+400) {
       newBulletTrainsList.add(t);
     }
