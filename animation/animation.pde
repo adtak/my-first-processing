@@ -44,12 +44,6 @@ void draw() {
       bulletTrainsList.add(createBulletTrains(-1*width));
     }
   }
-  for (LocalTrains t : localTrainsList) {
-    t.move(1, -5, -1);
-  }
-  for (BulletTrains t : bulletTrainsList) {
-    t.move(0, 0, 0);
-  }
 }
 
 LocalTrains createLocalTrains(float xInit) {
