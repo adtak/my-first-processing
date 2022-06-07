@@ -9,19 +9,30 @@ void setup() {
   ground = height*0.9;
   horizon = ground*0.95;
   background = new Background(horizon, ground);
-  trains = createTrains(3*width);
+  trains = createLocalTrains(0);
 }
 
 void draw() {
   background.draw();
-  trains.move(1);
+  trains.move(1, -5, -1);
 }
 
-AbstractTrains createTrains(float xInit) {
+LocalTrains createLocalTrains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = -10;
+  float speed = 10;
+  int trainAmount = 8;
+  return new LocalTrains(
+    c, trainWidth, trainHeight,
+    xInit, ground, speed, trainAmount);
+}
+
+BulletTrains createBulletTrains(float xInit) {
+  color c = color(random(360), 4, 10);
+  int trainWidth = 400;
+  int trainHeight = 150;
+  float speed = 50;
   int trainAmount = 3;
   return new BulletTrains(
     c, trainWidth, trainHeight,

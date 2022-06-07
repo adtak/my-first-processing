@@ -1,9 +1,9 @@
 abstract class AbstractTrains {
   protected ArrayList<AbstractTrain> trains;
 
-  protected void move(float jumpRate) {
+  protected void move(float jumpRate, int minJumpVelocity, int maxJumpVelocity) {
     for (AbstractTrain t : this.trains) {
-      t.move(jumpRate);
+      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity));
     }
   }
 }
@@ -18,13 +18,13 @@ abstract class AbstractTrain {
 
   abstract protected void drawBody();
 
-  public void move(float jumpRate) {
+  public void move(float jumpRate, float jumpVelocity) {
     if (this.y < this.yDefault) {
       this.vy += 0.5;
     } else {
       this.vy = 0;
       if (random(1) < jumpRate) {
-        this.vy = random(-2, -1);
+        this.vy = jumpVelocity;
       }
     }
     this.x += this.vx;
