@@ -1,7 +1,8 @@
 float horizon;
 float ground;
 Background background;
-AbstractTrains trains;
+ArrayList<LocalTrains> localTrainsList;
+ArrayList<BulletTrains> bulletTrainsList;
 
 void setup() {
   size(1300, 700);
@@ -9,19 +10,53 @@ void setup() {
   ground = height*0.9;
   horizon = ground*0.95;
   background = new Background(horizon, ground);
-  trains = createLocalTrains(0);
+  localTrainsList = new ArrayList();
+  bulletTrainsList = new ArrayList();
 }
 
 void draw() {
   background.draw();
-  trains.move(1, -5, -1);
+  ArrayList<LocalTrains> newLocalTrainsList = new ArrayList();
+  for (LocalTrains t : localTrainsList) {
+    t.move(1, -5, -1);
+    if (t.trains.get(t.trains.size()-1).x < width+400) {
+      newLocalTrainsList.add(t);
+    }
+  }
+  localTrainsList = newLocalTrainsList;
+
+  ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
+  for (BulletTrains t : bulletTrainsList) {
+    t.move(0, 0, 0);
+    if (t.trains.get(t.trains.size()-1).x < width+400) {
+      newBulletTrainsList.add(t);
+    }
+  }
+  bulletTrainsList = newBulletTrainsList;
+
+  if(localTrainsList.size()<2) {
+    if(random(0, 1)<0.01) {
+      localTrainsList.add(createLocalTrains(-1*width));
+    }
+  }
+  if(bulletTrainsList.size()<2) {
+    if(random(0, 1)<0.01) {
+      bulletTrainsList.add(createBulletTrains(-1*width));
+    }
+  }
+  for (LocalTrains t : localTrainsList) {
+    t.move(1, -5, -1);
+  }
+  for (BulletTrains t : bulletTrainsList) {
+    t.move(0, 0, 0);
+  }
 }
 
 LocalTrains createLocalTrains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = 10;
+  float speed = random(10, 15);
   int trainAmount = 8;
   return new LocalTrains(
     c, trainWidth, trainHeight,
@@ -32,7 +67,7 @@ BulletTrains createBulletTrains(float xInit) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = 50;
+  float speed = random(20, 30);
   int trainAmount = 3;
   return new BulletTrains(
     c, trainWidth, trainHeight,
