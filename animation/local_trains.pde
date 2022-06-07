@@ -61,7 +61,11 @@ class LocalTrain extends AbstractTrain {
     fill(this.c);
     rectMode(CENTER);
     rect(this.x, this.y, this.w, this.h, 10);
-    line(this.x-this.w/2, this.y+this.h/3, this.x+this.w/2, this.y+this.h/3);
+    fill(0, 0, 9);
+    rect(this.x, this.y-this.h/2+this.h*0.08/2, this.w, this.h*0.08, 10, 10, 0, 0);
+    line(
+      this.x-this.w/2*0.9, this.y+this.h/2-this.h*0.15,
+      this.x+this.w/2*0.9, this.y+this.h/2-this.h*0.15);
     drawWindows();
   }
 }

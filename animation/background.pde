@@ -29,8 +29,8 @@ class Background {
     this.midTrees.add(new Tree(width*0.7, railLine2-20));
     this.midTrees.add(new Tree(width*0.9, railLine2-20));
     this.frontTrees = new ArrayList();
-    this.frontTrees.add(new Tree(width*0.08, railLine2+20));
-    this.frontTrees.add(new Tree(width*0.82, railLine2+15));
+    this.frontTrees.add(new Tree(width*0.07, railLine2+20));
+    this.frontTrees.add(new Tree(width*0.85, railLine2+15));
   }
 
   public void drawBack() {

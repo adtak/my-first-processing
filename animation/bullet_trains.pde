@@ -81,7 +81,8 @@ class BulletTrainHead extends AbstractTrain {
     vertex(this.x+this.w*0.53+5, this.y+5);
     vertex(this.x+this.w*0.74+5, this.y+5);
     endShape(CLOSE);
-    line(this.x-this.w/2, this.y+this.h/3, this.x+this.w*0.7, this.y+this.h/3);
+    fill(0, 0, 10);
+    rect(this.x, this.y+this.h/3, this.w, this.h*0.1, 10);
     drawWindows();
   }
 }
@@ -139,12 +140,13 @@ class BulletTrainTail extends AbstractTrain {
     endShape();
     beginShape();
     fill(190, 0.5, 10);
-    vertex(this.x-(this.w/2+15), this.y-h/2+23);
-    vertex(this.x-(this.w/2+15), this.y-h/2+23+40);
-    vertex(this.x-(this.w/2+15+5), this.y-h/2+23+40+5);
-    vertex(this.x-(this.w/2+15+63), this.y-h/2+23+40+5);
+    vertex(this.x-(this.w*0.53), this.y-this.h/2*0.8);
+    vertex(this.x-(this.w*0.53), this.y);
+    vertex(this.x-(this.w*0.53+5), this.y+5);
+    vertex(this.x-(this.w*0.74+5), this.y+5);
     endShape();
-    line(this.x+this.w/2, this.y+this.h/3, this.x-this.w*0.7, this.y+this.h/3);
+    fill(0, 0, 10);
+    rect(this.x, this.y+this.h/3, this.w, this.h*0.1, 10);
     drawWindows();
   }
 
@@ -197,7 +199,8 @@ class BulletTrainMiddle extends AbstractTrain {
     fill(this.c);
     rectMode(CENTER);
     rect(this.x, this.y, this.w, this.h, 10);
-    line(this.x-this.w/2, this.y+this.h/3, this.x+this.w/2, this.y+this.h/3);
+    fill(0, 0, 10);
+    rect(this.x, this.y+this.h/3, this.w, this.h*0.1, 10);
     drawWindows();
   }
 }
