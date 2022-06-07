@@ -1,9 +1,10 @@
 class Background {
-  private float horizon, ground;
+  private float horizon, railLine1, railLine2;
 
-  public Background(float horizon, float ground) {
+  public Background(float horizon, float railLine1, float railLine2) {
     this.horizon = horizon;
-    this.ground = ground;
+    this.railLine1 = railLine1;
+    this.railLine2 = railLine2;
   }
 
   public void draw() {
@@ -29,7 +30,8 @@ class Background {
   private void drawLine() {
     stroke(0, 0, 5);
     strokeWeight(5);
-    line(0, this.ground, width, this.ground);
+    line(0, this.railLine1, width, this.railLine1);
+    line(0, this.railLine2, width, this.railLine2);
   }
 
   private void drawMountain() {

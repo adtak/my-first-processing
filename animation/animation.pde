@@ -1,5 +1,6 @@
 float horizon;
-float ground;
+float railLine1;
+float railLine2;
 Background background;
 ArrayList<LocalTrains> localTrainsList;
 ArrayList<BulletTrains> bulletTrainsList;
@@ -7,17 +8,18 @@ ArrayList<BulletTrains> bulletTrainsList;
 void setup() {
   size(1300, 700);
   colorMode(HSB, 360, 10, 10);
-  ground = height*0.9;
-  horizon = ground*0.95;
-  background = new Background(horizon, ground);
+  railLine1 = height*0.8;
+  railLine2 = height*0.9;
+  horizon = railLine1*0.95;
+  background = new Background(horizon, railLine1, railLine2);
   localTrainsList = new ArrayList();
   bulletTrainsList = new ArrayList();
 }
 
 void draw() {
   background.draw();
-  drawLocalTrains();
   drawBulletTrains();
+  drawLocalTrains();
 
   if(localTrainsList.size()<2) {
     if(random(0, 1)<0.005) {
@@ -39,7 +41,7 @@ LocalTrains createLocalTrains(float xInit) {
   int trainAmount = 8;
   return new LocalTrains(
     c, trainWidth, trainHeight,
-    xInit, ground, speed, trainAmount);
+    xInit, railLine2, speed, trainAmount);
 }
 
 BulletTrains createBulletTrains(float xInit) {
@@ -50,7 +52,7 @@ BulletTrains createBulletTrains(float xInit) {
   int trainAmount = 3;
   return new BulletTrains(
     c, trainWidth, trainHeight,
-    xInit, ground, speed, trainAmount);
+    xInit, railLine1, speed, trainAmount);
 }
 
 void drawLocalTrains() {
