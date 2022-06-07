@@ -26,15 +26,18 @@ void draw() {
 
   if(localTrainsList.size()<2) {
     if(random(0, 1)<0.005) {
-      localTrainsList.add(createLocalTrains(-400));
+      localTrainsList.add(createLocalTrains(false));
     }
     if(random(0, 1)<0.005) {
-      localTrainsList.add(createReverseLocalTrains(width+5*400));
+      localTrainsList.add(createLocalTrains(true));
     }
   }
   if(bulletTrainsList.size()<1) {
     if(random(0, 1)<0.005) {
-      bulletTrainsList.add(createBulletTrains(-400));
+      bulletTrainsList.add(createBulletTrains(false));
+    }
+    if(random(0, 1)<0.005) {
+      bulletTrainsList.add(createBulletTrains(true));
     }
   }
   // save();
@@ -46,26 +49,28 @@ void save() {
   }
 }
 
-LocalTrains createLocalTrains(float xInit) {
+LocalTrains createLocalTrains(boolean is_reverse) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = random(10, 15);
   int trainAmount = 5;
+  float xInit = is_reverse ? width+5*400 : -400;
+  float speed = is_reverse ? -1*random(10, 15) : random(10, 15);
   return new LocalTrains(
     c, trainWidth, trainHeight,
     xInit, railLine2, speed, trainAmount);
 }
 
-LocalTrains createReverseLocalTrains(float xInit) {
+BulletTrains createBulletTrains(boolean is_reverse) {
   color c = color(random(360), 4, 10);
   int trainWidth = 400;
   int trainHeight = 150;
-  float speed = -1 * random(10, 15);
-  int trainAmount = 5;
-  return new LocalTrains(
+  int trainAmount = 8;
+  float xInit = is_reverse ? width+10*400 : -400;
+  float speed = is_reverse ? -1*random(20, 30) : random(20, 30);
+  return new BulletTrains(
     c, trainWidth, trainHeight,
-    xInit, railLine2, speed, trainAmount);
+    xInit, railLine1, speed, trainAmount);
 }
 
 BulletTrains createBulletTrains(float xInit) {
@@ -97,9 +102,12 @@ void drawBulletTrains() {
   ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
   for (BulletTrains t : bulletTrainsList) {
     t.move(0, -30, -20);
-    if (t.trains.get(t.trains.size()-1).x < width+400) {
-      newBulletTrainsList.add(t);
+    if (t.trains.get(0).x < -400) {
+      continue;
+    } else if (width+400 < t.trains.get(t.trains.size()-1).x) {
+      continue;
     }
+    newBulletTrainsList.add(t);
   }
   bulletTrainsList = newBulletTrainsList;
 }
