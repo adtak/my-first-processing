@@ -1,6 +1,7 @@
 class Background {
   private float horizon, railLine1, railLine2;
   private ArrayList<Mountain> mountains;
+  private ArrayList<Cloud> clouds;
 
   public Background(float horizon, float railLine1, float railLine2) {
     this.horizon = horizon;
@@ -10,6 +11,11 @@ class Background {
     this.mountains.add(new Mountain(150, this.horizon, width*0.6, this.horizon*0.6));
     this.mountains.add(new Mountain(width*0.4, this.horizon, width*0.6, this.horizon*0.4));
     this.mountains.add(new Mountain(40, this.horizon, width*0.5, this.horizon*0.3));
+    this.clouds = new ArrayList();
+    this.clouds.add(new Cloud(width*0.1, height*0.2, 50, true));
+    this.clouds.add(new Cloud(width*0.75, height*0.3, 75, true));
+    this.clouds.add(new Cloud(width*0.25, height*0.3, 30, false));
+    this.clouds.add(new Cloud(width*0.55, height*0.15, 35, false));
   }
 
   public void draw() {
@@ -66,14 +72,9 @@ class Background {
   }
 
   private void drawCloud() {
-   Cloud c1 = new Cloud(width*0.1, height*0.2, 50, true);
-   c1.draw();
-   Cloud c2 = new Cloud(width*0.75, height*0.3, 75, true);
-   c2.draw();
-   Cloud c3 = new Cloud(width*0.25, height*0.3, 30, false);
-   c3.draw();
-   Cloud c4 = new Cloud(width*0.55, height*0.15, 35, false);
-   c4.draw();
+    for (Cloud c : this.clouds) {
+      c.draw();
+    }
   }
 }
 
