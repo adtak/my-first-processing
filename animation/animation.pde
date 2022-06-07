@@ -19,9 +19,9 @@ void setup() {
 
 void draw() {
   background.drawBack();
-  drawBulletTrains();
-  background.drawMid();
   drawLocalTrains();
+  background.drawMid();
+  drawBulletTrains();
   background.drawFront();
 
   if(localTrainsList.size()<2) {
@@ -58,7 +58,7 @@ LocalTrains createLocalTrains(boolean is_reverse) {
   float speed = is_reverse ? -1*random(10, 15) : random(10, 15);
   return new LocalTrains(
     c, trainWidth, trainHeight,
-    xInit, railLine2, speed, trainAmount);
+    xInit, railLine1, speed, trainAmount);
 }
 
 BulletTrains createBulletTrains(boolean is_reverse) {
@@ -70,18 +70,7 @@ BulletTrains createBulletTrains(boolean is_reverse) {
   float speed = is_reverse ? -1*random(20, 30) : random(20, 30);
   return new BulletTrains(
     c, trainWidth, trainHeight,
-    xInit, railLine1, speed, trainAmount);
-}
-
-BulletTrains createBulletTrains(float xInit) {
-  color c = color(random(360), 4, 10);
-  int trainWidth = 400;
-  int trainHeight = 150;
-  float speed = random(20, 30);
-  int trainAmount = 8;
-  return new BulletTrains(
-    c, trainWidth, trainHeight,
-    xInit, railLine1, speed, trainAmount);
+    xInit, railLine2, speed, trainAmount);
 }
 
 void drawLocalTrains() {
