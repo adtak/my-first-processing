@@ -8,8 +8,8 @@ Crossing crossing;
 float xCrossing;
 
 void setup() {
-  // size(1920, 1080);
-  size(1300, 700);
+  size(1920, 1080);
+  // size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   railLine1 = height*0.8;
   railLine2 = height*0.9;
@@ -33,11 +33,11 @@ void draw() {
   drawBulletTrains();
   background.drawFront();
   crossing.draw(xCrossing, -1000);
-  // save();
+  save();
 }
 
 void save() {
-  if (frameCount < 30*60*1) {
+  if (frameCount < 30*60*6) {
     saveFrame("frames/#####.png");
   }
 }
@@ -79,7 +79,7 @@ BulletTrains createBulletTrains(boolean is_reverse) {
   int trainHeight = 200;
   int trainAmount = 8;
   float xInit = is_reverse ? width+(trainAmount+2)*trainWidth : -1*trainWidth;
-  float speed = is_reverse ? -1*random(20, 30) : random(20, 30);
+  float speed = is_reverse ? -1*random(20, 30) : random(45, 55);
   return new BulletTrains(
     c, trainWidth, trainHeight,
     xInit, railLine2, speed, trainAmount);
