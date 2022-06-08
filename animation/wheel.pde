@@ -1,14 +1,11 @@
 class Wheel {
-  private color c;
   private float x, y;
   private float radius;
 
   public Wheel(
-    color c,
     float x, float y,
     float radius
   ) {
-    this.c = c;
     this.x = x;
     this.y = y;
     this.radius = radius;

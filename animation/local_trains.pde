@@ -47,19 +47,15 @@ class LocalTrain extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        c,
         x-w/4-wheelSize, ground-wheelSize,
         wheelSize),
       new Wheel(
-        c,
         x-w/4+wheelSize, ground-wheelSize,
         wheelSize),
       new Wheel(
-        c,
         x+w/4-wheelSize, ground-wheelSize,
         wheelSize),
       new Wheel(
-        c,
         x+w/4+wheelSize, ground-wheelSize,
         wheelSize),
     };

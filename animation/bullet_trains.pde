@@ -41,19 +41,15 @@ class BulletTrainHead extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        c,
         x-w/4-wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x-w/4+wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x+w/4+80-wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x+w/4+80+wheelRadius, ground-wheelRadius,
         wheelRadius),
     };
@@ -105,19 +101,15 @@ class BulletTrainTail extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        c,
         x-w/4-80-wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x-w/4-80+wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x+w/4-wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x+w/4+wheelRadius, ground-wheelRadius,
         wheelRadius),
     };
@@ -174,19 +166,15 @@ class BulletTrainMiddle extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        c,
         x-w/4-wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x-w/4+wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x+w/4-wheelRadius, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        c,
         x+w/4+wheelRadius, ground-wheelRadius,
         wheelRadius),
     };
