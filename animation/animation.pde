@@ -1,114 +1,48 @@
-float horizon;
-float railLine1;
-float railLine2;
-Background background;
-ArrayList<LocalTrains> localTrainsList;
-ArrayList<BulletTrains> bulletTrainsList;
-Crossing crossing;
-float xCrossing;
-
 void setup() {
-  size(1920, 1080);
-  // size(1300, 700);
+  size(1300, 700);
   colorMode(HSB, 360, 10, 10);
-  railLine1 = height*0.8;
-  railLine2 = height*0.9;
-  horizon = railLine1*0.95;
-  background = new Background(horizon, railLine1, railLine2);
-  localTrainsList = new ArrayList();
-  bulletTrainsList = new ArrayList();
-  crossing = new Crossing(width/4, railLine2+30);
-  xCrossing = -1000;
 }
 
 void draw() {
-  if (xCrossing < crossing.x) {
-    xCrossing += 10;
-  } else {
-    addTrains();
-  }
-  background.drawBack();
-  drawLocalTrains();
-  background.drawMid();
-  drawBulletTrains();
-  background.drawFront();
-  crossing.draw(xCrossing, -1000);
-  save();
-}
+  rectMode(CENTER);
+  stroke(0, 0, 5);
+  strokeWeight(5);
 
-void save() {
-  if (frameCount < 30*60*6) {
-    saveFrame("frames/#####.png");
-  }
-}
+  float x = width/2;
+  float y = height/2;
+  float w = 500;
+  float h = 150;
+  rect(x, y, w, h, 10, 0, 10, 10);
 
-void addTrains() {
-  if(localTrainsList.size()<2) {
-    if(random(0, 1)<0.005) {
-      localTrainsList.add(createLocalTrains(false));
-    }
-    if(random(0, 1)<0.005) {
-      localTrainsList.add(createLocalTrains(true));
-    }
-  }
-  if(bulletTrainsList.size()<1) {
-    if(random(0, 1)<0.005) {
-      bulletTrainsList.add(createBulletTrains(false));
-    }
-    if(random(0, 1)<0.005) {
-      bulletTrainsList.add(createBulletTrains(true));
-    }
-  }
-}
+  arc(x+w/2-w*3/8-w/20, y+h/2, w/4, w/4, PI, TWO_PI);
+  Wheel backWheel1 = new Wheel(x+w/2-w*3/8-w/20, y+h/2, w/4*0.4);
+  backWheel1.draw(x+w/2-w*3/8-w/20, y+h/2);
 
-LocalTrains createLocalTrains(boolean is_reverse) {
-  color c = color(random(360), 4, 10);
-  int trainWidth = 500;
-  int trainHeight = 200;
-  int trainAmount = 5;
-  float xInit = is_reverse ? width+trainAmount*trainWidth : -1*trainWidth;
-  float speed = is_reverse ? -1*random(10, 15) : random(10, 15);
-  return new LocalTrains(
-    c, trainWidth, trainHeight,
-    xInit, railLine1, speed, trainAmount);
-}
+  arc(x+w/2-w/8-w/20, y+h/2, w/4, w/4, PI, TWO_PI);
+  Wheel backWheel2 = new Wheel(x+w/2-w/8-w/20, y+h/2, w/4*0.4);
+  backWheel2.draw(x+w/2-w/8-w/20, y+h/2);
 
-BulletTrains createBulletTrains(boolean is_reverse) {
-  color c = color(random(360), 4, 10);
-  int trainWidth = 500;
-  int trainHeight = 200;
-  int trainAmount = 8;
-  float xInit = is_reverse ? width+(trainAmount+2)*trainWidth : -1*trainWidth;
-  float speed = is_reverse ? -1*random(20, 30) : random(45, 55);
-  return new BulletTrains(
-    c, trainWidth, trainHeight,
-    xInit, railLine2, speed, trainAmount);
-}
+  arc(x-w/3, y+h/2+w/4*0.4-w/6*0.4, w/6, w/6, PI*1.1, TWO_PI*0.95);
+  Wheel frontWheel = new Wheel(x-w/3, y+h/2+w/8-w/6*0.4, w/6*0.4);
+  frontWheel.draw(x-w/3, y+h/2+w/4*0.4-w/6*0.4);
 
-void drawLocalTrains() {
-  ArrayList<LocalTrains> newLocalTrainsList = new ArrayList();
-  for (LocalTrains t : localTrainsList) {
-    t.move(1, -5, -1);
-    if (t.trains.get(0).x < -1000) {
-      continue;
-    } else if (width+1000 < t.trains.get(t.trains.size()-1).x) {
-      continue;
-    }
-    newLocalTrainsList.add(t);
-  }
-  localTrainsList = newLocalTrainsList;
-}
+  rect(x-w/2-5, y, 10, h*0.8, 10, 0, 0, 10);
+  line(x-w/2*0.9, y, x-w/8, y);
 
-void drawBulletTrains() {
-  ArrayList<BulletTrains> newBulletTrainsList = new ArrayList();
-  for (BulletTrains t : bulletTrainsList) {
-    t.move(0, -30, -20);
-    if (t.trains.get(0).x < -1000) {
-      continue;
-    } else if (width+1000 < t.trains.get(t.trains.size()-1).x) {
-      continue;
-    }
-    newBulletTrainsList.add(t);
-  }
-  bulletTrainsList = newBulletTrainsList;
+  float wChimney = w/8;
+  float hChimney = h*0.8;
+  float xChimney = x-w/3;
+  float yChimney = y-h/2-hChimney/2;
+  rect(xChimney, yChimney, wChimney, hChimney, 10, 10, 0, 0);
+  rect(xChimney, yChimney-hChimney/2, wChimney+10, 30, 10);
+
+  rect(x+w/4, y-h, w/2, h);
+  rect(x+w/4, y-h*3/2-5, w/2+10, 30, 10, 10, 0, 0);
+  float wFrontWindow = w/2*0.4;
+  float xFrontWindow = x+w/2*0.3/3+wFrontWindow/2;
+  float wBackWindow = w/2*0.3;
+  float xBackWindow = x+w/2-w/2*0.3/3-wBackWindow/2;
+  float yWindow = y-h;
+  rect(xFrontWindow, yWindow, wFrontWindow, h*0.6, 10, 10, 0, 0);
+  rect(xBackWindow, yWindow, wBackWindow, h*0.6, 10, 10, 0, 0);
 }
