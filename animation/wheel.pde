@@ -11,7 +11,7 @@ class Wheel {
     this.radius = radius;
   }
 
-  public void draw(float x, float y) {
+  public void draw() {
     this.x = x;
     this.y = y;
     stroke(0, 0, 5);

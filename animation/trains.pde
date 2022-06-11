@@ -28,8 +28,10 @@ abstract class AbstractTrain {
       }
     }
     this.x += this.vx;
+    float yBefore = this.y;
     this.y += this.vy;
     this.y = min(this.yDefault, this.y);
+    this.vy = this.y - yBefore;
     drawBody();
     drawWheel();
     drawJoint();
@@ -59,10 +61,9 @@ abstract class AbstractTrain {
 
   protected void drawWheel() {
     for (Wheel wheel : this.wheels) {
-      wheel.draw(
-        wheel.x+this.vx,
-        this.y+this.h/2+wheel.radius
-      );
+      wheel.x += this.vx;
+      wheel.y += this.vy;
+      wheel.draw();
     }
   }
 }
