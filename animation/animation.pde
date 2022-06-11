@@ -15,10 +15,9 @@ void draw() {
 }
 
 SL createSL() {
-  color c = color(0, 0, 10);
   float x = -250;
   float y = height*0.8;
   int w = 500;
   int h = 150;
-  return new SL(c, w, h, x, y, 10, 0);
+  return new SL(random(360), w, h, x, y, 1, 0);
 }
