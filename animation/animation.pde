@@ -3,6 +3,7 @@ SL sl;
 float idling;
 
 void setup() {
+  // size(1920, 1080);
   size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   lc = new LandscapeController(height*0.7);
@@ -16,6 +17,13 @@ void draw() {
   sl.move(0, 0, idling);
   if(width < sl.x-250) {
     sl = createSL();
+  }
+  // save();
+}
+
+void save() {
+  if (frameCount < 2) {
+    saveFrame("frames/#####.png");
   }
 }
 

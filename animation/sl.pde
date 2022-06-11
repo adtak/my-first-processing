@@ -33,9 +33,18 @@ class SL extends AbstractTrain {
     fill(this.c);
     rect(this.x, this.y, this.w, this.h, 0, 10, 10, 10);
     fill(color(0, 0, 8));
-    arc(this.x-this.w/2+this.w*3/8+this.w/20, this.y+this.h/2, this.w/4, this.w/4, PI, TWO_PI);
-    arc(this.x-this.w/2+this.w/8+this.w/20, this.y+this.h/2, this.w/4, this.w/4, PI, TWO_PI);
-    arc(this.x+this.w/3, this.y+this.h/2+this.w/4*0.4-this.w/6*0.4, this.w/6, this.w/6, PI*1.1, TWO_PI*0.95);
+    arc(
+      this.x-this.w/2+this.w*3/8+this.w/20, this.y+this.h/2,
+      this.w/4*0.9, this.w/4*0.9,
+      PI, TWO_PI);
+    arc(
+      this.x-this.w/2+this.w/8+this.w/20, this.y+this.h/2,
+      this.w/4*0.9, this.w/4*0.9,
+      PI, TWO_PI);
+    arc(
+      this.x+this.w/3, this.y+this.h/2+this.w/4*0.4-this.w/6*0.4,
+      this.w/6, this.w/6,
+      PI*1.1, TWO_PI*0.95);
     fill(this.c);
     rect(this.x+this.w/2+5, this.y, 10, this.h*0.8, 0, 50, 50, 0);
     line(this.x+this.w/2*0.9, this.y, this.x+this.w/8, this.y);
