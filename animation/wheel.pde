@@ -11,9 +11,8 @@ class Wheel {
     this.radius = radius;
   }
 
-  public void draw() {
-    this.x = x;
-    this.y = y;
+  public void draw(float idling) {
+    float arcStart = this.x/40 + idling;
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(0, 0, 9);
@@ -27,6 +26,6 @@ class Wheel {
     arc(
       this.x, this.y,
       this.radius*6/5, this.radius*6/5,
-      this.x/40, this.x/40+PI/2, OPEN);
+      arcStart, arcStart+PI/2, OPEN);
   }
 }

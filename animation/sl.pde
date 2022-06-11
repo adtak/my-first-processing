@@ -31,7 +31,7 @@ class SL extends AbstractTrain {
     stroke(0, 0, 5);
     strokeWeight(5);
     fill(this.c);
-    rect(this.x, this.y, this.w, this.h, 10, 0, 10, 10);
+    rect(this.x, this.y, this.w, this.h, 0, 10, 10, 10);
     fill(color(0, 0, 8));
     arc(this.x-this.w/2+this.w*3/8+this.w/20, this.y+this.h/2, this.w/4, this.w/4, PI, TWO_PI);
     arc(this.x-this.w/2+this.w/8+this.w/20, this.y+this.h/2, this.w/4, this.w/4, PI, TWO_PI);
@@ -44,6 +44,7 @@ class SL extends AbstractTrain {
     float hChimney = this.h*0.8;
     float xChimney = this.x+this.w/3;
     float yChimney = this.y-this.h/2-hChimney/2;
+    fill(this.cSub);
     rect(xChimney, yChimney, wChimney, hChimney, 10, 10, 0, 0);
     rect(xChimney, yChimney-hChimney/2, wChimney+10, 30, 10);
 

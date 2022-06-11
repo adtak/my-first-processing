@@ -3,7 +3,7 @@ abstract class AbstractTrains {
 
   protected void move(float jumpRate, int minJumpVelocity, int maxJumpVelocity) {
     for (AbstractTrain t : this.trains) {
-      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity));
+      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity), 0);
     }
   }
 }
@@ -18,7 +18,7 @@ abstract class AbstractTrain {
 
   abstract protected void drawBody();
 
-  public void move(float jumpRate, float jumpVelocity) {
+  public void move(float jumpRate, float jumpVelocity, float idling) {
     if (this.y < this.yDefault) {
       this.vy += 0.5;
     } else {
@@ -33,7 +33,7 @@ abstract class AbstractTrain {
     this.y = min(this.yDefault, this.y);
     this.vy = this.y - yBefore;
     drawBody();
-    drawWheel();
+    drawWheel(idling);
     drawJoint();
   }
 
@@ -59,11 +59,11 @@ abstract class AbstractTrain {
       10);
   }
 
-  protected void drawWheel() {
+  protected void drawWheel(float idling) {
     for (Wheel wheel : this.wheels) {
       wheel.x += this.vx;
       wheel.y += this.vy;
-      wheel.draw();
+      wheel.draw(idling);
     }
   }
 }

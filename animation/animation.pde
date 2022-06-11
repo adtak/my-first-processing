@@ -1,16 +1,19 @@
 LandscapeController lc;
 SL sl;
+float idling;
 
 void setup() {
   size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   lc = new LandscapeController(height*0.7);
   sl = createSL();
+  idling = 0;
 }
 
 void draw() {
   lc.moveBackground(-5);
-  sl.move(0, 0);
+  idling += 0.1;
+  sl.move(0, 0, idling);
   if(width < sl.x-250) {
     sl = createSL();
   }

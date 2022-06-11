@@ -9,8 +9,8 @@ class LandscapeController {
   }
 
   public void moveBackground(float vx) {
-    if (this.clouds.size()<5) {
-      if (0.985<random(1)) {
+    if (this.clouds.size()<10) {
+      if (0.99<random(1)) {
         this.clouds.add(new Cloud(width, height*random(0.1, 0.3), 50, true));
       }
     }

@@ -23,7 +23,7 @@ class LocalTrains extends AbstractTrains {
         minJumpVelocity = -30;
         maxJumpVelocity = -20;
       }
-      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity));
+      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity), 0);
     }
   }
 }
