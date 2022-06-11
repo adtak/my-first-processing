@@ -27,6 +27,6 @@ class Wheel {
     arc(
       this.x, this.y,
       this.radius*6/5, this.radius*6/5,
-      this.x/25, this.x/25+PI/2, OPEN);
+      this.x/40, this.x/40+PI/2, OPEN);
   }
 }
