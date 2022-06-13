@@ -14,10 +14,11 @@ void setup() {
 void draw() {
   lc.moveBackground(-5);
   idling += 0.1;
-  sl.move(0, 0, idling);
+  sl.move(1, random(-5, -1), idling);
   if(width < sl.x-250) {
     sl = createSL();
   }
+  lc.moveForeground(-5);
   // save();
 }
 
