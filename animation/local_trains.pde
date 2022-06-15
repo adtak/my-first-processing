@@ -18,7 +18,7 @@ class LocalTrains extends AbstractTrains {
 
   protected void move(float jumpRate, int minJumpVelocity, int maxJumpVelocity) {
     for (AbstractTrain t : this.trains) {
-      if(0<t.x && t.x<width && random(1)<0.03) {
+      if(0<t.x && t.x<width && random(1)<0) {
         jumpRate = 1;
         minJumpVelocity = -30;
         maxJumpVelocity = -20;

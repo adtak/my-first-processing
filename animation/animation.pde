@@ -1,5 +1,6 @@
 LandscapeController lc;
 SL sl;
+LocalTrains lt;
 float idling;
 
 void setup() {
@@ -8,6 +9,7 @@ void setup() {
   colorMode(HSB, 360, 10, 10);
   lc = new LandscapeController(height*0.7);
   sl = createSL();
+  lt = createLocalTrains();
   idling = 0;
 }
 
@@ -15,23 +17,35 @@ void draw() {
   lc.moveBackground(-5);
   idling += 0.1;
   sl.move(1, random(-5, -1), idling);
-  if(width < sl.x-250) {
-    sl = createSL();
-  }
+  lt.move(1, -5, -1);
   lc.moveForeground(-5);
-  // save();
+  save();
 }
 
 void save() {
-  if (frameCount < 2) {
+  if (frameCount < 30) {
     saveFrame("frames/#####.png");
   }
 }
 
 SL createSL() {
-  float x = width/2;
-  float y = height*0.8;
   int w = 500;
   int h = 150;
-  return new SL(random(360), w, h, x, y, 0, 0);
+  float x = width*0.75;
+  float y = height*0.8;
+  float speed = 0;
+  float jointWidth = 10;
+  return new SL(random(360), w, h, x, y, speed, jointWidth);
+}
+
+LocalTrains createLocalTrains() {
+  color c = sl.cSub;
+  int w = 500;
+  int h = 250;
+  float x = sl.x-sl.w/2-sl.jointWidth-w/2;
+  float y = height*0.8;
+  float speed = 0;
+  int trainAmount = 2;
+  return new LocalTrains(
+    c, w, h, x, y, speed, trainAmount);
 }
