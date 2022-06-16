@@ -4,8 +4,8 @@ LocalTrains lt;
 float idling;
 
 void setup() {
-  // size(1920, 1080);
-  size(1300, 700);
+  size(1920, 1080);
+  // size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   lc = new LandscapeController(height*0.7);
   sl = createSL();
@@ -23,7 +23,7 @@ void draw() {
 }
 
 void save() {
-  if (frameCount < 30) {
+  if (frameCount < 30*10) {
     saveFrame("frames/#####.png");
   }
 }

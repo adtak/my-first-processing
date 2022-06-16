@@ -1,5 +1,6 @@
 class SL extends AbstractTrain {
   color cSub;
+  ArrayList<Smoke> smoke;
 
   public SL(
     float colorV1,
@@ -24,6 +25,7 @@ class SL extends AbstractTrain {
       new Wheel(this.x+this.w/3, this.y+this.h/2+this.w/4*0.4-this.w/6*0.4, this.w/6*0.4),
     };
     this.jointWidth = jointWidth;
+    this.smoke = new ArrayList();
   }
 
   protected void drawBody() {
@@ -63,6 +65,7 @@ class SL extends AbstractTrain {
     rect(this.x-w/4, this.y-this.h*3/2-5, this.w/2+10, 30, 10, 10, 0, 0);
 
     drawWindows();
+    drawSmoke(xChimney, yChimney-hChimney/2-30);
   }
 
   protected void drawWindows() {
@@ -74,5 +77,43 @@ class SL extends AbstractTrain {
     float yWindow = this.y-this.h;
     rect(xFrontWindow, yWindow, wFrontWindow, h*0.6, 10, 10, 0, 0);
     rect(xBackWindow, yWindow, wBackWindow, h*0.6, 10, 10, 0, 0);
+  }
+
+  protected void drawSmoke(float x, float y) {
+    ArrayList<Smoke> newSmoke = new ArrayList();
+    for (Smoke s : this.smoke) {
+      s.vx += random(-0.05, 0);
+      s.vy += random(-0.001, 0);
+      s.draw();
+      if (0<s.x && 0<s.y) {
+        newSmoke.add(s);
+      }
+    }
+    int len = int(random(10));
+    for (int i=0; i<len; i++) {
+      smoke.add(new Smoke(x, y));
+    }
+  }
+}
+
+class Smoke {
+  float x;
+  float y;
+  float vx;
+  float vy;
+
+  public Smoke(float x, float y) {
+    this.x = x;
+    this.y = y;
+    this.vx = random(-1, -0.5);
+    this.vy = random(-1, 0);
+  }
+
+  public void draw() {
+    this.x += this.vx;
+    this.y += this.vy;
+    fill(0, 0, 5, 20);
+    noStroke();
+    ellipse(this.x, this.y, 30, 30);
   }
 }
