@@ -8,14 +8,17 @@ class LandscapeController {
   public LandscapeController(float horizon) {
     this.horizon = horizon;
     this.clouds = new ArrayList();
+    for(int i=0; i<8; ++i) {
+      this.clouds.add(new Cloud(random(width), height*random(0.1, 0.3), 50, true));
+    }
     this.mountains = new ArrayList();
     this.backTrees = new ArrayList();
     this.frontTrees = new ArrayList();
   }
 
   public void moveBackground(float vx) {
-    moveClouds(vx);
-    moveMountaions(vx);
+    moveClouds(vx*0.1);
+    moveMountaions(vx*0.5);
     moveBackTrees(vx);
     drawBackground();
   }
@@ -51,7 +54,7 @@ class LandscapeController {
       } else {
         isMountainAdd = true;
       }
-      if (isMountainAdd && 0.97<random(1)) {
+      if (isMountainAdd && 0.99<random(1)) {
         this.mountains.add(new Mountain(
           width,
           this.horizon,
