@@ -101,19 +101,23 @@ class Smoke {
   float y;
   float vx;
   float vy;
+  float diameter;
+  color c;
 
   public Smoke(float x, float y) {
     this.x = x;
     this.y = y;
     this.vx = random(-1, -0.5);
     this.vy = random(-1, 0);
+    this.diameter = random(10, 100);
+    this.c = color(0, 0, 7, 20);
   }
 
   public void draw() {
     this.x += this.vx;
     this.y += this.vy;
-    fill(0, 0, 5, 20);
+    fill(this.c);
     noStroke();
-    ellipse(this.x, this.y, 30, 30);
+    ellipse(this.x, this.y, this.diameter, this.diameter);
   }
 }

@@ -23,7 +23,7 @@ void draw() {
 }
 
 void save() {
-  if (frameCount < 30*10) {
+  if (frameCount < 30*1) {
     saveFrame("frames/#####.png");
   }
 }
