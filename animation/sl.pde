@@ -91,8 +91,9 @@ class SL extends AbstractTrain {
     }
     int len = int(random(10));
     for (int i=0; i<len; i++) {
-      smoke.add(new Smoke(x, y));
+      newSmoke.add(new Smoke(x, y));
     }
+    this.smoke = newSmoke;
   }
 }
 

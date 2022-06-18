@@ -15,9 +15,7 @@ void setup() {
 
 void draw() {
   lc.moveBackground(-5);
-  idling += 0.1;
-  sl.move(1, random(-5, -1), idling);
-  lt.move(1, -5, -1);
+  moveSL();
   lc.moveForeground(-5);
   save();
 }
@@ -48,4 +46,11 @@ LocalTrains createLocalTrains() {
   int trainAmount = 2;
   return new LocalTrains(
     c, w, h, x, y, speed, trainAmount);
+}
+
+void moveSL() {
+  idling += 0.1;
+  sl.move(1, random(-5, -1), idling);
+  lt.move(1, -5, -1);
+
 }

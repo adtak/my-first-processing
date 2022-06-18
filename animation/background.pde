@@ -177,15 +177,15 @@ class Cloud {
 class Mountain {
   private float xStart;
   private float y;
-  private float mountainWidth;
-  private float mountainHeight;
+  private float w;
+  private float h;
   private color c;
 
-  public Mountain(float xStart, float y, float mountainWidth, float mountainHeight) {
+  public Mountain(float xStart, float y, float w, float h) {
     this.xStart = xStart;
     this.y = y;
-    this.mountainWidth = mountainWidth;
-    this.mountainHeight = mountainHeight;
+    this.w = w;
+    this.h = h;
     this.c = color(120+int(random(-50, 50)), 3, 8);
   }
 
@@ -196,9 +196,9 @@ class Mountain {
     beginShape();
     vertex(this.xStart, this.y);
     bezierVertex(
-      this.xStart+this.mountainWidth/2, this.y-this.mountainHeight,
-      this.xStart+this.mountainWidth/2, this.y-this.mountainHeight,
-      this.xStart+this.mountainWidth, this.y);
+      this.xStart+this.w/2, this.y-this.h,
+      this.xStart+this.w/2, this.y-this.h,
+      this.xStart+this.w, this.y);
     endShape();
   }
 }
