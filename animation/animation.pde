@@ -5,8 +5,8 @@ BulletTrains bt;
 float idling;
 
 void setup() {
-  // size(1920, 1080);
-  size(1300, 700);
+  size(1920, 1080);
+  // size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   lc = new LandscapeController(height*0.7, height*0.8, height*0.85);
   sl = createSL();
@@ -20,11 +20,11 @@ void draw() {
   moveSL();
   moveBulletTrains();
   lc.moveForeground(-10);
-  // save();
+  save();
 }
 
 void save() {
-  if (frameCount < 30*10) {
+  if (frameCount < 30*60*6) {
     saveFrame("frames/#####.png");
   }
 }
@@ -36,7 +36,7 @@ SL createSL() {
   float y = height*0.8;
   float speed = 0;
   float jointWidth = 10;
-  return new SL(random(360), w, h, x, y, speed, jointWidth);
+  return new SL(0, w, h, x, y, speed, jointWidth);
 }
 
 LocalTrains createLocalTrains() {
@@ -71,7 +71,7 @@ void moveSL() {
 
 void moveBulletTrains() {
   bt.move(0, 0, 0);
-  if(bt.trains.get(0).x+bt.trains.get(0).w/2<0) {
+  if(bt.trains.get(0).x+bt.trains.get(0).w/2<-200) {
     bt = createBulletTrains();
   }
 }

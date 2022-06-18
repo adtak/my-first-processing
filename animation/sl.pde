@@ -11,7 +11,7 @@ class SL extends AbstractTrain {
   ) {
     float wheelSize = 20;
     this.c = color(colorV1, 4, 10);
-    this.cSub = color(colorV1-20, 4, 10);
+    this.cSub = color(colorV1+20, 4, 10);
     this.w = w;
     this.h = h;
     this.yDefault = ground-wheelSize*2-h/2;
