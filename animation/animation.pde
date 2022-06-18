@@ -1,6 +1,7 @@
 LandscapeController lc;
 SL sl;
 LocalTrains lt;
+BulletTrains bt;
 float idling;
 
 void setup() {
@@ -10,12 +11,14 @@ void setup() {
   lc = new LandscapeController(height*0.7, height*0.8);
   sl = createSL();
   lt = createLocalTrains();
+  bt = createBulletTrains();
   idling = 0;
 }
 
 void draw() {
   lc.moveBackground(-5);
   moveSL();
+  moveBulletTrains();
   lc.moveForeground(-5);
   save();
 }
@@ -48,9 +51,27 @@ LocalTrains createLocalTrains() {
     c, w, h, x, y, speed, trainAmount);
 }
 
+BulletTrains createBulletTrains() {
+  color c = color(random(360), 4, 10);
+  int w = 700;
+  int h = 250;
+  int trainAmount = 8;
+  float xInit = w+(trainAmount+2)*w+random(5000, 10000);
+  float speed = -1*random(20, 30);
+  return new BulletTrains(
+    c, w, h,
+    xInit, height*0.85, speed, trainAmount);
+}
+
 void moveSL() {
   idling += 0.1;
   sl.move(1, random(-5, -1), idling);
   lt.move(1, -5, -1);
+}
 
+void moveBulletTrains() {
+  bt.move(0, 0, 0);
+  if(bt.trains.get(0).x+bt.trains.get(0).w/2<0) {
+    bt = createBulletTrains();
+  }
 }
