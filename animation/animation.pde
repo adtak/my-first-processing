@@ -4,10 +4,10 @@ LocalTrains lt;
 float idling;
 
 void setup() {
-  size(1920, 1080);
-  // size(1300, 700);
+  // size(1920, 1080);
+  size(1300, 700);
   colorMode(HSB, 360, 10, 10);
-  lc = new LandscapeController(height*0.7);
+  lc = new LandscapeController(height*0.7, height*0.8);
   sl = createSL();
   lt = createLocalTrains();
   idling = 0;

@@ -1,12 +1,15 @@
 class LandscapeController {
   float horizon;
+  float line1;
   ArrayList<Cloud> clouds;
   ArrayList<Mountain> mountains;
   ArrayList<Tree> backTrees;
   ArrayList<Tree> frontTrees;
+  Crossing crossing;
 
-  public LandscapeController(float horizon) {
+  public LandscapeController(float horizon, float line1) {
     this.horizon = horizon;
+    this.line1 = line1;
     this.clouds = new ArrayList();
     for(int i=0; i<8; ++i) {
       this.clouds.add(new Cloud(random(width), height*random(0.1, 0.3), 50, true));
@@ -14,18 +17,27 @@ class LandscapeController {
     this.mountains = new ArrayList();
     this.backTrees = new ArrayList();
     this.frontTrees = new ArrayList();
+    this.crossing = new Crossing(width+1000, height*0.95);
   }
 
   public void moveBackground(float vx) {
     moveClouds(vx*0.1);
     moveMountaions(vx*0.5);
-    moveBackTrees(vx);
+    moveBackTrees(vx*0.9);
     drawBackground();
   }
 
   public void moveForeground(float vx) {
     moveFrontTrees(vx);
+    moveCrossing(vx);
     drawForeground();
+  }
+
+  private void moveCrossing(float vx) {
+    this.crossing.x += vx;
+    if(this.crossing.x<-300) {
+      this.crossing.x = width+random(1000, 1500);
+    }
   }
 
   private void moveClouds(float vx) {
@@ -112,6 +124,10 @@ class LandscapeController {
     rect(
       0, this.horizon,
       width, height);
+    stroke(0, 0, 5);
+    strokeWeight(5);
+    line(0, this.horizon, width, this.horizon);
+    line(0, this.line1, width, this.line1);
     for (Mountain mountain : this.mountains) {
       mountain.draw();
     }
@@ -127,5 +143,6 @@ class LandscapeController {
     for (Tree tree : this.frontTrees) {
       tree.draw();
     }
+    this.crossing.draw(this.crossing.x, this.crossing.x);
   }
 }
