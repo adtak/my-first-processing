@@ -16,14 +16,14 @@ class LocalTrains extends AbstractTrains {
     }
   }
 
-  protected void move(float jumpRate, int minJumpVelocity, int maxJumpVelocity) {
+  protected void move(float jumpRate, int minJumpVelocity, int maxJumpVelocity, float idling) {
     for (AbstractTrain t : this.trains) {
       if(0<t.x && t.x<width && random(1)<0) {
         jumpRate = 1;
         minJumpVelocity = -30;
         maxJumpVelocity = -20;
       }
-      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity), 0);
+      t.move(jumpRate, random(minJumpVelocity, maxJumpVelocity), idling);
     }
   }
 }

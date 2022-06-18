@@ -8,7 +8,7 @@ void setup() {
   // size(1920, 1080);
   size(1300, 700);
   colorMode(HSB, 360, 10, 10);
-  lc = new LandscapeController(height*0.7, height*0.8);
+  lc = new LandscapeController(height*0.7, height*0.8, height*0.85);
   sl = createSL();
   lt = createLocalTrains();
   bt = createBulletTrains();
@@ -16,15 +16,15 @@ void setup() {
 }
 
 void draw() {
-  lc.moveBackground(-5);
+  lc.moveBackground(-10);
   moveSL();
   moveBulletTrains();
-  lc.moveForeground(-5);
-  save();
+  lc.moveForeground(-10);
+  // save();
 }
 
 void save() {
-  if (frameCount < 30*1) {
+  if (frameCount < 30*10) {
     saveFrame("frames/#####.png");
   }
 }
@@ -66,7 +66,7 @@ BulletTrains createBulletTrains() {
 void moveSL() {
   idling += 0.1;
   sl.move(1, random(-5, -1), idling);
-  lt.move(1, -5, -1);
+  lt.move(1, -5, -1, idling);
 }
 
 void moveBulletTrains() {
