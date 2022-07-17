@@ -1,25 +1,27 @@
 class LandscapeController {
   float horizon;
-  float line1;
-  float line2;
+  ArrayList<float> lines;
   ArrayList<Cloud> clouds;
   ArrayList<Mountain> mountains;
   ArrayList<Tree> backTrees;
   ArrayList<Tree> frontTrees;
   Crossing crossing;
 
-  public LandscapeController(float horizon, float line1, float line2) {
+  public LandscapeController(float horizon, ArrayList<float> lines) {
     this.horizon = horizon;
-    this.line1 = line1;
-    this.line2 = line2;
+    this.lines = lines;
     this.clouds = new ArrayList();
-    for(int i=0; i<8; ++i) {
-      this.clouds.add(new Cloud(random(width), height*random(0.1, 0.3), 50, true));
-    }
+    this.initClouds(8);
     this.mountains = new ArrayList();
     this.backTrees = new ArrayList();
     this.frontTrees = new ArrayList();
     this.crossing = new Crossing(width+1000, height*0.95);
+  }
+
+  private initClouds(int numOfClouds) {
+    for(int i=0; i<numOfClouds; ++i) {
+      this.clouds.add(new Cloud(random(width), height*random(0.1, 0.3), 50, true));
+    }    
   }
 
   public void moveBackground(float vx) {
