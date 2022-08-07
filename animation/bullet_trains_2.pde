@@ -41,16 +41,16 @@ class BulletTrainHead2 extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        x-w/4-wheelRadius, ground-wheelRadius,
+        x-w*0.5+wheelRadius*4, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x-w/4+wheelRadius, ground-wheelRadius,
+        x-w*0.5+wheelRadius*6, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x+w/4+80-wheelRadius, ground-wheelRadius,
+        x+w*0.5-wheelRadius*12, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x+w/4+80+wheelRadius, ground-wheelRadius,
+        x+w*0.5-wheelRadius*14, ground-wheelRadius,
         wheelRadius),
     };
     this.jointWidth = jointWidth;
@@ -89,7 +89,21 @@ class BulletTrainHead2 extends AbstractTrain {
 
     fill(0, 0, 10);
     beginShape();
-    endShape();
+    vertex(this.x-this.w*0.5, this.y+this.h*0.15);
+    vertex(this.x, this.y+this.h*0.15);
+    bezierVertex(
+      this.x+this.w*0.1, this.y+this.h*0.15,
+      this.x+this.w*0.15, this.y+this.h*0.15,
+      this.x+this.w*0.2, this.y+this.h*0.25
+    );
+    vertex(this.x+this.w*0.5, this.y+this.h*0.3);
+    bezierVertex(
+      this.x+this.w*0.5, this.y+this.h*0.5,
+      this.x+this.w*0.4, this.y+this.h*0.5,
+      this.x+this.w*0.4, this.y+this.h*0.5
+    );
+    vertex(this.x-this.w*0.5, this.y+this.h*0.5);
+    endShape(CLOSE);
 
     drawWindows();
   }
