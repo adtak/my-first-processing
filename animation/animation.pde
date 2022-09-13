@@ -5,7 +5,7 @@ void setup() {
   size(1300, 700);
   colorMode(HSB, 360, 10, 10);
   bulletTrains = new BulletTrains2(
-    color(0, 4, 10), 800, 200, 0, height*0.8, 10, 0
+    color(0, 4, 10), 800, 200, 0, height*0.8, 10, 1
   );
 }
 

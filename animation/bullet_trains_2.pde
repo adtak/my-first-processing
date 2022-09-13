@@ -12,7 +12,7 @@ class BulletTrains2 extends AbstractTrains {
     for(int i=0; i<trainAmount; i++) {
       x = x-w-jointWidth;
       this.trains.add(
-        new BulletTrainMiddle2(c, 2*w, h, x, ground, vx, jointWidth)
+        new BulletTrainMiddle2(c, w, h, x, ground, vx, jointWidth)
       );
     }
     x = x-w-jointWidth;
