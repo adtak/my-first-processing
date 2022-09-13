@@ -15,10 +15,10 @@ class BulletTrains2 extends AbstractTrains {
         new BulletTrainMiddle2(c, 2*w, h, x, ground, vx, jointWidth)
       );
     }
-    x = x-w-jointWidth;
-    this.trains.add(
-      new BulletTrainTail2(c, w, h, x, ground, vx)
-    );
+    // x = x-w-jointWidth;
+    // this.trains.add(
+    //   new BulletTrainTail2(c, w, h, x, ground, vx)
+    // );
   }
 }
 
@@ -107,7 +107,7 @@ class BulletTrainHead2 extends AbstractTrain {
 
     fill(0, 0, 6);
     beginShape();
-    vertex(this.x+20, this.y-this.h*0.4);
+    vertex(this.x, this.y-this.h*0.4);
     bezierVertex(
       this.x+this.w*0.1, this.y-this.h*0.4,
       this.x+this.w*0.2, this.y-this.h*0.25,
@@ -153,16 +153,16 @@ class BulletTrainTail2 extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        x-w/4-80-wheelRadius, ground-wheelRadius,
+        x-w*0.5+wheelRadius*4, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x-w/4-80+wheelRadius, ground-wheelRadius,
+        x-w*0.5+wheelRadius*6, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x+w/4-wheelRadius, ground-wheelRadius,
+        x+w*0.5-wheelRadius*12, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x+w/4+wheelRadius, ground-wheelRadius,
+        x+w*0.5-wheelRadius*14, ground-wheelRadius,
         wheelRadius),
     };
     this.jointWidth = 0;
@@ -171,27 +171,79 @@ class BulletTrainTail2 extends AbstractTrain {
   protected void drawBody() {
     stroke(0, 0, 5);
     strokeWeight(5);
+
     fill(this.c);
-    rectMode(CENTER);
-    rect(this.x, this.y, this.w, this.h, 20, 10, 10, 0);
     beginShape();
-    vertex(this.x-this.w/2+5, this.y-h/2+5);
+    vertex(this.x+this.w*0.5, this.y-this.h*0.5);
+    vertex(this.x+this.w*0.1, this.y-this.h*0.5);
     bezierVertex(
-      this.x-(this.w), this.y+h/2,
-      this.x-(this.w), this.y+h/2,
-      this.x-(this.w/2-5), this.y+h/2
+      this.x+this.w*0.05, this.y-this.h*0.5,
+      this.x+this.w*0.05, this.y-this.h*0.5,
+      this.x, this.y-this.h*0.4
     );
-    endShape();
-    beginShape();
-    fill(190, 0.5, 10);
-    vertex(this.x-(this.w*0.53), this.y-this.h/2*0.8);
-    vertex(this.x-(this.w*0.53), this.y);
-    vertex(this.x-(this.w*0.53+5), this.y+5);
-    vertex(this.x-(this.w*0.74+5), this.y+5);
-    endShape();
+    bezierVertex(
+      this.x-this.w*0.1, this.y-this.h*0.4,
+      this.x-this.w*0.2, this.y-this.h*0.25,
+      this.x-this.w*0.25, this.y-this.h*0.1
+    );
+    bezierVertex(
+      this.x-this.w*0.5, this.y+this.h*0.05,
+      this.x-this.w*0.5, this.y+this.h*0.2,
+      this.x-this.w*0.5, this.y+this.h*0.3
+    );
+    bezierVertex(
+      this.x-this.w*0.5, this.y+this.h*0.5,
+      this.x-this.w*0.4, this.y+this.h*0.5,
+      this.x-this.w*0.4, this.y+this.h*0.5
+    );
+    vertex(this.x+this.w*0.5, this.y+this.h*0.5);
+    endShape(CLOSE);
+
     fill(0, 0, 10);
-    rect(this.x, this.y+this.h/3, this.w, this.h*0.1, 10);
+    beginShape();
+    vertex(this.x+this.w*0.5, this.y+this.h*0.15);
+    vertex(this.x, this.y+this.h*0.15);
+    bezierVertex(
+      this.x-this.w*0.1, this.y+this.h*0.15,
+      this.x-this.w*0.15, this.y+this.h*0.15,
+      this.x-this.w*0.2, this.y+this.h*0.25
+    );
+    vertex(this.x-this.w*0.5, this.y+this.h*0.3);
+    bezierVertex(
+      this.x-this.w*0.5, this.y+this.h*0.5,
+      this.x-this.w*0.4, this.y+this.h*0.5,
+      this.x-this.w*0.4, this.y+this.h*0.5
+    );
+    vertex(this.x+this.w*0.5, this.y+this.h*0.5);
+    endShape(CLOSE);
+
+    fill(0, 0, 6);
+    beginShape();
+    vertex(this.x, this.y-this.h*0.4);
+    bezierVertex(
+      this.x-this.w*0.1, this.y-this.h*0.4,
+      this.x-this.w*0.2, this.y-this.h*0.25,
+      this.x-this.w*0.25, this.y-this.h*0.1
+    );
+    vertex(this.x-this.w*0.1, this.y-this.h*0.13);
+    endShape(CLOSE);
+
     drawWindows();
+  }
+
+  protected void drawWindows() {
+    drawWindow(this.x-this.w*0.5*7.5/9, this.y-this.h/10);
+    drawWindow(this.x-this.w*0.5*5.5/9, this.y-this.h/10);
+    drawWindow(this.x-this.w*0.5*3.5/9, this.y-this.h/10);
+    drawWindow(this.x-this.w*0.5*1.5/9, this.y-this.h/10);
+  }
+
+  protected void drawWindow(float x, float y) {
+    float windowWidth = this.w*0.5/9;
+    float windowHeight = this.h*0.3;
+    fill(190, 0.5, 10);
+    rect(x, y, windowWidth, windowHeight, 10);
+    line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
   }
 
   protected void drawJoint() {
