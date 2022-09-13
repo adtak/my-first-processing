@@ -71,7 +71,7 @@ class BulletTrainHead2 extends AbstractTrain {
     );
     bezierVertex(
       this.x+this.w*0.1, this.y-this.h*0.4,
-      this.x+this.w*0.2, this.y-this.h*0.4,
+      this.x+this.w*0.2, this.y-this.h*0.25,
       this.x+this.w*0.25, this.y-this.h*0.1
     );
     bezierVertex(
@@ -103,6 +103,17 @@ class BulletTrainHead2 extends AbstractTrain {
       this.x+this.w*0.4, this.y+this.h*0.5
     );
     vertex(this.x-this.w*0.5, this.y+this.h*0.5);
+    endShape(CLOSE);
+
+    fill(0, 0, 6);
+    beginShape();
+    vertex(this.x+20, this.y-this.h*0.4);
+    bezierVertex(
+      this.x+this.w*0.1, this.y-this.h*0.4,
+      this.x+this.w*0.2, this.y-this.h*0.25,
+      this.x+this.w*0.25, this.y-this.h*0.1
+    );
+    vertex(this.x+this.w*0.1, this.y-this.h*0.13);
     endShape(CLOSE);
 
     drawWindows();
