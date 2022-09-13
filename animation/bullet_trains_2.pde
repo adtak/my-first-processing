@@ -15,10 +15,10 @@ class BulletTrains2 extends AbstractTrains {
         new BulletTrainMiddle2(c, 2*w, h, x, ground, vx, jointWidth)
       );
     }
-    // x = x-w-jointWidth;
-    // this.trains.add(
-    //   new BulletTrainTail2(c, w, h, x, ground, vx)
-    // );
+    x = x-w-jointWidth;
+    this.trains.add(
+      new BulletTrainTail2(c, w, h, x, ground, vx)
+    );
   }
 }
 
@@ -156,16 +156,16 @@ class BulletTrainTail2 extends AbstractTrain {
     this.vy = 0;
     this.wheels = new Wheel[] {
       new Wheel(
-        x-w*0.5+wheelRadius*4, ground-wheelRadius,
+        x+w*0.5-wheelRadius*4, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x-w*0.5+wheelRadius*6, ground-wheelRadius,
+        x+w*0.5-wheelRadius*6, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x+w*0.5-wheelRadius*12, ground-wheelRadius,
+        x-w*0.5+wheelRadius*12, ground-wheelRadius,
         wheelRadius),
       new Wheel(
-        x+w*0.5-wheelRadius*14, ground-wheelRadius,
+        x-w*0.5+wheelRadius*14, ground-wheelRadius,
         wheelRadius),
     };
     this.jointWidth = 0;
@@ -235,10 +235,10 @@ class BulletTrainTail2 extends AbstractTrain {
   }
 
   protected void drawWindows() {
-    drawWindow(this.x-this.w*0.5*7.5/9, this.y-this.h/10);
-    drawWindow(this.x-this.w*0.5*5.5/9, this.y-this.h/10);
-    drawWindow(this.x-this.w*0.5*3.5/9, this.y-this.h/10);
-    drawWindow(this.x-this.w*0.5*1.5/9, this.y-this.h/10);
+    drawWindow(this.x+this.w*0.5*7.5/9, this.y-this.h/10);
+    drawWindow(this.x+this.w*0.5*5.5/9, this.y-this.h/10);
+    drawWindow(this.x+this.w*0.5*3.5/9, this.y-this.h/10);
+    drawWindow(this.x+this.w*0.5*1.5/9, this.y-this.h/10);
   }
 
   protected void drawWindow(float x, float y) {
