@@ -53,6 +53,10 @@ abstract class AbstractTrain {
   }
 
   protected void drawJoint() {
+    stroke(0, 0, 5);
+    strokeWeight(5);
+    fill(0, 0, 9);
+    rectMode(CENTER);
     rect(
       this.x-this.w/2-this.jointWidth/2, this.y,
       this.jointWidth, this.h*0.8,

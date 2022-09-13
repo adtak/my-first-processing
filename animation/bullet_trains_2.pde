@@ -59,8 +59,8 @@ class BulletTrainHead2 extends AbstractTrain {
   protected void drawBody() {
     stroke(0, 0, 5);
     strokeWeight(5);
-
     fill(this.c);
+
     beginShape();
     vertex(this.x-this.w*0.5, this.y-this.h*0.5);
     vertex(this.x-this.w*0.1, this.y-this.h*0.5);
@@ -129,7 +129,10 @@ class BulletTrainHead2 extends AbstractTrain {
   protected void drawWindow(float x, float y) {
     float windowWidth = this.w*0.5/9;
     float windowHeight = this.h*0.3;
+    stroke(0, 0, 5);
+    strokeWeight(5);
     fill(190, 0.5, 10);
+    rectMode(CENTER);
     rect(x, y, windowWidth, windowHeight, 10);
     line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
   }
@@ -241,7 +244,10 @@ class BulletTrainTail2 extends AbstractTrain {
   protected void drawWindow(float x, float y) {
     float windowWidth = this.w*0.5/9;
     float windowHeight = this.h*0.3;
+    stroke(0, 0, 5);
+    strokeWeight(5);
     fill(190, 0.5, 10);
+    rectMode(CENTER);
     rect(x, y, windowWidth, windowHeight, 10);
     line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
   }
