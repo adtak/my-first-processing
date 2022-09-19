@@ -298,7 +298,31 @@ class BulletTrainMiddle2 extends AbstractTrain {
     rectMode(CENTER);
     rect(this.x, this.y, this.w, this.h, 10);
     fill(0, 0, 10);
-    rect(this.x, this.y+this.h/3, this.w, this.h*0.1, 10);
+    rect(this.x, this.y+this.h*0.33, this.w, this.h*0.34, 0, 0, 10, 10);
     drawWindows();
+  }
+
+    protected void drawWindows() {
+    float windowWidth = this.w*0.5/9;
+    float windowGap = (this.w-windowWidth*8)/9;
+    drawWindow(this.x-windowWidth*3.5-windowGap*3.5, this.y-this.h/10);
+    drawWindow(this.x-windowWidth*2.5-windowGap*2.5, this.y-this.h/10);
+    drawWindow(this.x-windowWidth*1.5-windowGap*1.5, this.y-this.h/10);
+    drawWindow(this.x-windowWidth*0.5-windowGap*0.5, this.y-this.h/10);
+    drawWindow(this.x+windowWidth*0.5+windowGap*0.5, this.y-this.h/10);
+    drawWindow(this.x+windowWidth*1.5+windowGap*1.5, this.y-this.h/10);
+    drawWindow(this.x+windowWidth*2.5+windowGap*2.5, this.y-this.h/10);
+    drawWindow(this.x+windowWidth*3.5+windowGap*3.5, this.y-this.h/10);
+  }
+
+  protected void drawWindow(float x, float y) {
+    float windowWidth = this.w*0.5/9;
+    float windowHeight = this.h*0.3;
+    stroke(0, 0, 5);
+    strokeWeight(5);
+    fill(190, 0.5, 10);
+    rectMode(CENTER);
+    rect(x, y, windowWidth, windowHeight, 10);
+    line(x-windowWidth/2, y-windowHeight/4, x+windowWidth/2, y-windowHeight/4);
   }
 }
